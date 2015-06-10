@@ -10,3 +10,7 @@ Simple flexible layouts for IE9+
 * react-style? move it out? should not be used inside the render neither.
 * make the gutters configuration be part of the settings of the component
 * tests?
+
+# Contributing
+
+* `npm install` && `'npm run build'`
