@@ -1,14 +1,14 @@
-var webpack               = require('webpack');
+var webpack = require('webpack');
 
 var webpackConfig = {
   entry: {
     app: [
-      './src/entry.js'
+      './src/index.jsx'
     ]
   },
   output: {
-    path: './dist',
-    filename: 'react-flexbox-layout.js'
+    path: './',
+    filename: 'bundle.js'
   },
   devtool: 'source-map',
   module: {
@@ -18,6 +18,7 @@ var webpackConfig = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    root: __dirname
   }
 };
 
