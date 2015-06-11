@@ -36,7 +36,13 @@ let styles = {
   },
   titleR: {
     fontSize: '120px',
-    display: 'block',
-    transform: 'rotate(30deg)'
+    width: '160px',
+    height: '160px',
+    display: 'inline-block',
+    transform: 'rotate(30deg)',
+    border: '10px solid white',
+    borderRadius: '120px',
+    marginRight: '20px'
+
   }
 }

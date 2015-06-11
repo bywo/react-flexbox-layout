@@ -5,8 +5,8 @@
   "main": "echo \"Error: no main specified\" && exit 1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js  -d",
-    "build": "./node_modules/webpack/bin/webpack.js"
+    "watch": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js  -d --progress",
+    "build": "./node_modules/webpack/bin/webpack.js --progress"
   },
   "repository": {
     "type": "git",
