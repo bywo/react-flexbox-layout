@@ -13,7 +13,7 @@ import VLayoutItemIE9 from './vertical_item_ie9';
 
 let HLayout, HLayoutItem, VLayout, VLayoutItem;
 
-if (isIE9()) {
+if (!hasFlexbox()) {
   HLayout = HLayoutIE9;
   HLayoutItem = HLayoutItemIE9;
   VLayout = VLayoutIE9;
