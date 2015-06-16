@@ -1,6 +1,13 @@
 # react-flexbox-layout
 Simple flexible layouts for IE9+
 
+## Assumptions
+
+* `* { box-sizing: box-sizing }`
+
+## Set up
+
+* Run examples server: `npm run examples`, `http://localhost:8080`
 
 # Next steps
 
@@ -10,10 +17,6 @@ Simple flexible layouts for IE9+
 * react-style? move it out? should not be used inside the render neither.
 * make the gutters configuration be part of the settings of the component
 * tests?
-
-## Assumptions
-
-* `* { box-sizing: box-sizing }`
 
 # Contributing
 
