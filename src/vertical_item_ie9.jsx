@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactStyle from 'react-style';
 import _ from 'lodash';
-import commonStyles from 'app/views/shared/common_styles';
 import {VLayoutItemPropTypes} from './prop_types';
 
 
@@ -15,8 +13,8 @@ export default class VLayoutItemIE9 extends React.Component {
   render() {
 
     return (
-      <div data-display-name="VLayoutItemWrapper" styles={this._getItemWrapperStyles()}>
-        <div ref="inner" styles={this._getItemStyles()}
+      <div data-display-name="VLayoutItemWrapper" style={this._getItemWrapperStyles()}>
+        <div ref="inner" style={this._getItemStyles()}
           data-display-name="VLayoutItem"
           className={this._getClassname()}
         >
@@ -71,13 +69,13 @@ export default class VLayoutItemIE9 extends React.Component {
 
     let gutterType = 'margin';
     if (_.isNumber(_gutterTop)) {
-      styles[gutterType + 'Top'] = _gutterTop * commonStyles.layout.gridUnit + 'rem';
+      styles[gutterType + 'Top'] = _gutterTop;
     }
     if (_.isNumber(_gutterBottom)) {
-      styles[gutterType + 'Bottom'] = _gutterBottom * commonStyles.layout.gridUnit + 'rem';
+      styles[gutterType + 'Bottom'] = _gutterBottom;
     }
 
-    return ReactStyle.create(styles);
+    return styles;
   }
 
   _getItemStyles() {
@@ -90,7 +88,7 @@ export default class VLayoutItemIE9 extends React.Component {
       styles.height = '100%';
     }
 
-    return ReactStyle.create(styles);
+    return styles;
   }
 
   _getClassname() {

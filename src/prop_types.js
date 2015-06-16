@@ -14,7 +14,7 @@ export let HLayoutPropTypes = {
 export let HLayoutDefaultPropTypes = {
   justifyItems: 'left',
   alignItems: 'stretch',
-  gutter: 1
+  gutter: 0
 };
 
 export let HLayoutItemPropTypes = {
@@ -46,7 +46,7 @@ export let VLayoutPropTypes = {
 export let VLayoutDefaultPropTypes = {
   justifyItems: 'stretch',
   alignItems: 'top',
-  gutter: 1
+  gutter: 0
 };
 
 export let VLayoutItemPropTypes = {

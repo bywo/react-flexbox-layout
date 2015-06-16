@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactStyle from 'react-style';
 import VLayoutItem from './vertical_item';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
 import {getVGutterSizes, mapNonEmpty} from './util';
@@ -99,7 +98,7 @@ export default class VLayout extends React.Component {
     styles.msFlexAlign = cssValueToOldFlexSyntax(justifyItems);
     styles.alignItems = justifyItems;
 
-    return ReactStyle.create(styles);
+    return styles;
   }
 }
 

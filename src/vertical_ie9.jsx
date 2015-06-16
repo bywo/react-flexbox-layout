@@ -1,5 +1,5 @@
+import _ from 'lodash';
 import React from 'react';
-import ReactStyle from 'react-style';
 import VLayoutItemIE9 from './vertical_item_ie9';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
 import {getVGutterSizes, forEachNonEmpty, mapNonEmpty, countNonEmpty, sumSizes, addTo, getSizeCalc} from './util';
@@ -35,10 +35,10 @@ export default class VLayoutIE9 extends React.Component {
 
     return (
       <div ref="wrapper" data-display-name="VLayoutWrapper"
-        styles={[this._getLayoutWrapperStyles(), this.props.style]}
+        style={_.extend(this._getLayoutWrapperStyles(), this.props.style)}
       >
         <div ref="container" data-display-name="VLayout"
-          styles={this._getLayoutStyles()}
+          style={this._getLayoutStyles()}
         >
           {children}
         </div>
@@ -144,7 +144,7 @@ export default class VLayoutIE9 extends React.Component {
       styles.tableLayout = 'fixed';
     }
 
-    return ReactStyle.create(styles);
+    return styles;
   }
 
   _getLayoutStyles() {
@@ -154,7 +154,7 @@ export default class VLayoutIE9 extends React.Component {
       verticalAlign: this.props.alignItems
     };
 
-    return ReactStyle.create(styles);
+    return styles;
   }
 
   // Whenever one of the children has a flexGrow the whole layout

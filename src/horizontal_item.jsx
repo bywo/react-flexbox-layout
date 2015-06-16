@@ -1,7 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactStyle from 'react-style';
-import commonStyles from 'app/views/shared/common_styles';
 import {HLayoutItemPropTypes} from './prop_types';
 import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
 
@@ -68,13 +66,13 @@ export default class HLayoutItem extends React.Component {
 
     let gutterType = 'margin';
     if (_.isNumber(_gutterLeft)) {
-      style[gutterType + 'Left'] = _gutterLeft * commonStyles.layout.gridUnit + 'rem';
+      style[gutterType + 'Left'] = _gutterLeft;
     }
     if (_.isNumber(_gutterRight)) {
-      style[gutterType + 'Right'] = _gutterRight * commonStyles.layout.gridUnit + 'rem';
+      style[gutterType + 'Right'] = _gutterRight;
     }
 
-    return ReactStyle.create(style);
+    return style;
   }
 }
 

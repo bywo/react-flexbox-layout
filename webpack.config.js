@@ -3,7 +3,7 @@ var webpack               = require('webpack');
 var webpackConfig = {
   entry: {
     app: [
-      './src/entry.js'
+      './src/index.js'
     ]
   },
   output: {

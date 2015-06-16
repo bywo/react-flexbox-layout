@@ -1,5 +1,5 @@
+import _ from 'lodash';
 import React from 'react';
-import commonStyles from 'app/views/shared/common_styles';
 import {HLayoutItemPropTypes} from './prop_types';
 
 
@@ -23,6 +23,7 @@ export default class HLayoutItemIE9 extends React.Component {
     } else {
       return (
         <div data-display-name="HLayoutItemWrapper" style={_.extend(this._getWrapperStyles())}>
+          <div style={{display: 'inline-block', verticalAlign: 'middle', width: 0, overflow: 'hidden'}}>a</div>
           <div ref="inner"
             data-display-name="HLayoutItem"
             className={this._getClassname()}
@@ -46,8 +47,9 @@ export default class HLayoutItemIE9 extends React.Component {
       style.lineHeight = '';
     }
 
-    if (!this.props.height && this.props.align !== 'stretch') {
+    if (this.props.align === 'stretch') {
       style.height = '';
+      this.node.className = "";
     }
   }
 
@@ -72,6 +74,9 @@ export default class HLayoutItemIE9 extends React.Component {
   _setContainerHeight(height) {
     if (this._requiresExtraWrapper()) {
       this.node.style.lineHeight = height;
+    } else if (this.props.align === 'stretch') {
+      this.node.style.height = '100%';
+      this.node.className = this._getClassname();
     }
   }
 
@@ -84,10 +89,10 @@ export default class HLayoutItemIE9 extends React.Component {
     style.width = this.props.width;
 
     if (_.isNumber(_gutterLeft)) {
-      style.marginLeft = _gutterLeft * commonStyles.layout.gridUnit + 'rem';
+      style.marginLeft = _gutterLeft;
     }
     if (_.isNumber(_gutterRight)) {
-      style.marginRight = _gutterRight * commonStyles.layout.gridUnit + 'rem';
+      style.marginRight = _gutterRight;
     }
 
     if (this._requiresExtraWrapper()) {
@@ -102,7 +107,7 @@ export default class HLayoutItemIE9 extends React.Component {
       display: 'inline-block'
     };
 
-    style.height = this.props.align === 'stretch' ? '100%' : this.props.height;
+    style.height = this.props.height;
 
     let align = this.props.align;
     if (align === 'stretch') {

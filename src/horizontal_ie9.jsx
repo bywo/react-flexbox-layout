@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactStyle from 'react-style';
 import HLayoutItemIE9 from './horizontal_item_ie9';
 import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
 import {getHGutterSizes, mapNonEmpty, countNonEmpty, sumSizes, addTo, getSizeCalc} from './util';
@@ -155,7 +154,7 @@ export default class HLayoutIE9 extends React.Component {
       height: this.props.height
     };
 
-    return ReactStyle.create(styles);
+    return styles;
   }
 }
 

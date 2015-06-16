@@ -1,6 +1,4 @@
-import isIE9 from 'app/views/util/is_ie9';
-
-import Container from './container';
+import hasFlexbox from './modernizr';
 
 import HLayoutFlex from './horizontal';
 import HLayoutItemFlex from './horizontal_item';

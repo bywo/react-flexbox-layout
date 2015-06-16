@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactStyle from 'react-style';
 import HLayoutItem from './horizontal_item';
 import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
 import {getHGutterSizes, mapNonEmpty} from './util';
@@ -78,7 +77,7 @@ export default class HLayout extends React.Component {
     styles.msFlexAlign = cssValueToOldFlexSyntax(alignItems);
     styles.alignItems = alignItems;
 
-    return ReactStyle.create(styles);
+    return styles;
   }
 }
 

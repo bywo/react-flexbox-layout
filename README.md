@@ -11,6 +11,10 @@ Simple flexible layouts for IE9+
 * make the gutters configuration be part of the settings of the component
 * tests?
 
+## Assumptions
+
+* `* { box-sizing: box-sizing }`
+
 # Contributing
 
 * `npm install` && `'npm run build'`

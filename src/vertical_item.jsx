@@ -1,7 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactStyle from 'react-style';
-import commonStyles from 'app/views/shared/common_styles';
 import {VLayoutItemPropTypes} from './prop_types';
 import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
 
@@ -51,13 +49,13 @@ export default class VLayoutItem extends React.Component {
 
     let gutterType = 'margin';
     if (_.isNumber(_gutterTop)) {
-      style[gutterType + 'Top'] = _gutterTop * commonStyles.layout.gridUnit + 'rem';
+      style[gutterType + 'Top'] = _gutterTop;
     }
     if (_.isNumber(_gutterBottom)) {
-      style[gutterType + 'Bottom'] = _gutterBottom * commonStyles.layout.gridUnit + 'rem';
+      style[gutterType + 'Bottom'] = _gutterBottom;
     }
 
-    return ReactStyle.create(style);
+    return style;
   }
 
   _getClassname() {
