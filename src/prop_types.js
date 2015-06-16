@@ -7,6 +7,7 @@ export let HLayoutPropTypes = {
   justifyItems: React.PropTypes.oneOf(['left', 'center', 'right']),
   alignItems: React.PropTypes.oneOf(['top', 'middle', 'baseline', 'bottom', 'stretch']),
   gutter: React.PropTypes.number,
+  gutterUnit: React.PropTypes.string,
   width: React.PropTypes.any,
   height: React.PropTypes.any
 };
@@ -14,7 +15,8 @@ export let HLayoutPropTypes = {
 export let HLayoutDefaultPropTypes = {
   justifyItems: 'left',
   alignItems: 'stretch',
-  gutter: 0
+  gutter: 0,
+  gutterUnit: 'px'
 };
 
 export let HLayoutItemPropTypes = {
@@ -27,8 +29,8 @@ export let HLayoutItemPropTypes = {
   gutterRight: React.PropTypes.number,
 
   // Used internally by HLayout
-  _gutterLeft: React.PropTypes.number,
-  _gutterRight: React.PropTypes.number,
+  _gutterLeft: React.PropTypes.string,
+  _gutterRight: React.PropTypes.string
 };
 
 
@@ -39,6 +41,7 @@ export let VLayoutPropTypes = {
   justifyItems: React.PropTypes.oneOf(['left', 'center', 'right', 'stretch']),
   alignItems: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
   gutter: React.PropTypes.number,
+  gutterUnit: React.PropTypes.string,
   width: React.PropTypes.any,
   height: React.PropTypes.any
 };
@@ -46,7 +49,8 @@ export let VLayoutPropTypes = {
 export let VLayoutDefaultPropTypes = {
   justifyItems: 'stretch',
   alignItems: 'top',
-  gutter: 0
+  gutter: 0,
+  gutterUnit: 'px'
 };
 
 export let VLayoutItemPropTypes = {
@@ -59,7 +63,7 @@ export let VLayoutItemPropTypes = {
   gutterBottom: React.PropTypes.number,
 
   // Used internally by VLayout
-  _gutterTop: React.PropTypes.number,
-  _gutterBottom: React.PropTypes.number
+  _gutterTop: React.PropTypes.string,
+  _gutterBottom: React.PropTypes.string
 };
 

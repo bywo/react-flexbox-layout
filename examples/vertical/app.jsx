@@ -14,7 +14,7 @@ class DummyNode extends React.Component {
 }
 
 React.render((
-  <VLayout height={300} style={{textAlign: 'right'}}>
+  <VLayout height={300} gutter={10} style={{textAlign: 'right'}}>
     <VLayoutItem width={100} flexGrow justify="left">
       <DummyNode style={{padding: 10}}>left</DummyNode>
     </VLayoutItem>

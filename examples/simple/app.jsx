@@ -14,7 +14,7 @@ class DummyNode extends React.Component {
 }
 
 React.render((
-  <HLayout>
+  <HLayout gutter={10}>
     <HLayoutItem flexGrow align="top">
       <DummyNode style={{padding: 10}}>top</DummyNode>
     </HLayoutItem>

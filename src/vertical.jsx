@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import VLayoutItem from './vertical_item';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
-import {getVGutterSizes, mapNonEmpty, normalizeAlign, normalizeJustify} from './util';
+import {getVGutterSizes, mapNonEmpty, normalizeAlign} from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default class VLayout extends React.Component {
@@ -13,9 +13,9 @@ export default class VLayout extends React.Component {
       let props = {};
 
       if (index === 0) {
-        props._gutterTop = gutterSizes[0];
+        props._gutterTop = gutterSizes[0] ? gutterSizes[0] + this.props.gutterUnit : undefined;
       }
-      props._gutterBottom = gutterSizes[index + 1];
+      props._gutterBottom = gutterSizes[index + 1] ? gutterSizes[index + 1] + this.props.gutterUnit : undefined;
       props.justify = child.props.justify || this.props.justifyItems;
 
       if (child.type === VLayoutItem) {

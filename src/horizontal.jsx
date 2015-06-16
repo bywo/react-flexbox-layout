@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import HLayoutItem from './horizontal_item';
 import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
-import {getHGutterSizes, mapNonEmpty, normalizeAlign, normalizeJustify} from './util';
+import {getHGutterSizes, mapNonEmpty, normalizeJustify} from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default class HLayout extends React.Component {
@@ -13,9 +13,9 @@ export default class HLayout extends React.Component {
       let props = {};
 
       if (index === 0) {
-        props._gutterLeft = gutterSizes[0];
+        props._gutterLeft = gutterSizes[0] ? gutterSizes[0] + this.props.gutterUnit : undefined;
       }
-      props._gutterRight = gutterSizes[index + 1];
+      props._gutterRight = gutterSizes[index + 1] ? gutterSizes[index + 1] + this.props.gutterUnit : undefined;
 
       props.align = child.props.align || this.props.alignItems;
 

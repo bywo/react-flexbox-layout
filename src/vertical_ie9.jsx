@@ -30,7 +30,7 @@ export default class VLayoutIE9 extends React.Component {
     this.gutterSizes = getVGutterSizes(this.props.children, this.props.gutter);
 
     let children = mapNonEmpty(this.props.children, (child, index) => {
-      return this._buildChild(child, index);
+      return this._buildChild(child, index, this.gutterSizes);
     });
 
     return (
@@ -46,7 +46,7 @@ export default class VLayoutIE9 extends React.Component {
     );
   }
 
-  _buildChild(child, index) {
+  _buildChild(child, index, gutterSizes) {
     let props = {};
 
     let ref = `item_${index}`;
@@ -57,9 +57,9 @@ export default class VLayoutIE9 extends React.Component {
 
     // Pass down the gutters
     if (index === 0) {
-      props._gutterTop = this.gutterSizes[0];
+      props._gutterTop = gutterSizes[0] ? gutterSizes[0] + this.props.gutterUnit : undefined;
     }
-    props._gutterBottom = this.gutterSizes[index + 1];
+    props._gutterBottom = gutterSizes[index + 1] ? gutterSizes[index + 1] + this.props.gutterUnit : undefined;
     props.justify = child.props.justify || this.props.justifyItems;
 
     if (child.type === VLayoutItemIE9) {
@@ -121,7 +121,7 @@ export default class VLayoutIE9 extends React.Component {
     addTo(usedSpace, 'px', _.sum(this._measuredHeights));
 
     // add gutters
-    addTo(usedSpace, 'rem', _.sum(this.gutterSizes));
+    addTo(usedSpace, this.props.gutterUnit, _.sum(this.gutterSizes));
 
     _.range(countNonEmpty(this.props.children)).forEach((i) => {
       const item = this.refs[`item_${i}`];

@@ -37,10 +37,10 @@ export default class VLayoutItem extends React.Component {
     style.alignSelf = align;
 
 
-    if (_.isNumber(_gutterTop)) {
+    if (_gutterTop) {
       style.marginTop = _gutterTop;
     }
-    if (_.isNumber(_gutterBottom)) {
+    if (_gutterBottom) {
       style.marginBottom = _gutterBottom;
     }
 

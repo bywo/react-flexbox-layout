@@ -49,9 +49,9 @@ export default class HLayoutIE9 extends React.Component {
     let props = {};
 
     if (index === 0) {
-      props._gutterLeft = gutterSizes[0];
+      props._gutterLeft = gutterSizes[0] ? gutterSizes[0] + this.props.gutterUnit : undefined;
     }
-    props._gutterRight = gutterSizes[index + 1];
+    props._gutterRight = gutterSizes[index + 1] ? gutterSizes[index + 1] + this.props.gutterUnit : undefined;
 
     let ref = `item_${index}`;
     this.itemsRefs.push(ref);
@@ -124,7 +124,7 @@ export default class HLayoutIE9 extends React.Component {
     addTo(usedSpace, 'px', _.sum(this._measuredWidths));
 
     // add gutters
-    addTo(usedSpace, 'rem', _.sum(this.gutterSizes));
+    addTo(usedSpace, this.props.gutterUnit, _.sum(this.gutterSizes));
 
     _.range(countNonEmpty(this.props.children)).forEach((i) => {
       const item = this.refs[`item_${i}`];

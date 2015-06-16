@@ -68,10 +68,10 @@ export default class VLayoutItemIE9 extends React.Component {
     };
 
     let gutterType = 'margin';
-    if (_.isNumber(_gutterTop)) {
+    if (_gutterTop) {
       styles[gutterType + 'Top'] = _gutterTop;
     }
-    if (_.isNumber(_gutterBottom)) {
+    if (_gutterBottom) {
       styles[gutterType + 'Bottom'] = _gutterBottom;
     }
 

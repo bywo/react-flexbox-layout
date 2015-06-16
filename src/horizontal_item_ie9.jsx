@@ -88,10 +88,10 @@ export default class HLayoutItemIE9 extends React.Component {
 
     style.width = this.props.width;
 
-    if (_.isNumber(_gutterLeft)) {
+    if (_gutterLeft) {
       style.marginLeft = _gutterLeft;
     }
-    if (_.isNumber(_gutterRight)) {
+    if (_gutterRight) {
       style.marginRight = _gutterRight;
     }
 
