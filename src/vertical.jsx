@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import VLayoutItem from './vertical_item';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
-import {getVGutterSizes, mapNonEmpty} from './util';
+import {getVGutterSizes, mapNonEmpty, normalizeAlign, normalizeJustify} from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default class VLayout extends React.Component {
@@ -46,30 +46,7 @@ export default class VLayout extends React.Component {
   }
 
   _getContainerStyles () {
-    let justifyItems, alignItems;
-
-    switch (this.props.justifyItems) {
-      case "left":
-        justifyItems = 'flex-start';
-        break;
-      case 'right':
-        justifyItems = 'flex-end';
-        break;
-      default:
-        justifyItems = this.props.justifyItems;
-        break;
-    }
-    switch (this.props.alignItems) {
-      case "top":
-        alignItems = 'flex-start';
-        break;
-      case "middle":
-        alignItems = 'center';
-        break;
-      case 'bottom':
-        alignItems = 'flex-end';
-        break;
-    }
+    let justifyItems = normalizeAlign(this.props.alignItems);
 
     let styles = {
       width: this.props.width,
@@ -88,15 +65,10 @@ export default class VLayout extends React.Component {
     styles.msFlexWrap = 'nowrap';
     styles.flexWrap = 'nowrap';
     // justify-content
-    styles.WebkitBoxPack = cssValueToOldFlexSyntax(alignItems);
-    styles.WebkitJustifyContent = alignItems;
-    styles.msFlexPack = cssValueToOldFlexSyntax(alignItems);
-    styles.justifyContent = alignItems;
-    // align-items
-    styles.WebkitBoxAlign = cssValueToOldFlexSyntax(justifyItems);
-    styles.WebkitAlignItems = justifyItems;
-    styles.msFlexAlign = cssValueToOldFlexSyntax(justifyItems);
-    styles.alignItems = justifyItems;
+    styles.WebkitBoxPack = cssValueToOldFlexSyntax(justifyItems);
+    styles.WebkitJustifyContent = justifyItems;
+    styles.msFlexPack = cssValueToOldFlexSyntax(justifyItems);
+    styles.justifyContent = justifyItems;
 
     return styles;
   }

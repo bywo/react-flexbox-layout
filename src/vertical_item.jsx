@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import {VLayoutItemPropTypes} from './prop_types';
 import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
+import {normalizeJustify} from './util';
 
 export default class VLayoutItem extends React.Component {
   render() {
@@ -27,18 +28,7 @@ export default class VLayoutItem extends React.Component {
       style = prefixFlexProp(style, 0, 0, 'auto');
     }
 
-    let align;
-    switch (this.props.justify) {
-      case "left":
-        align = 'flex-start';
-        break;
-      case "right":
-        align = 'flex-end';
-        break;
-      default:
-        align = this.props.justify;
-        break;
-    }
+    let align = normalizeJustify(this.props.justify);
 
     // Browser vendor prefixes
     // align-self
@@ -47,12 +37,11 @@ export default class VLayoutItem extends React.Component {
     style.alignSelf = align;
 
 
-    let gutterType = 'margin';
     if (_.isNumber(_gutterTop)) {
-      style[gutterType + 'Top'] = _gutterTop;
+      style.marginTop = _gutterTop;
     }
     if (_.isNumber(_gutterBottom)) {
-      style[gutterType + 'Bottom'] = _gutterBottom;
+      style.marginBottom = _gutterBottom;
     }
 
     return style;

@@ -120,3 +120,34 @@ export function getSizeCalc(usedSpace, flexGrow, totalFlexGrow) {
 
   return `calc(${expressions.join(' - ')})`;
 }
+
+export function normalizeAlign(align) {
+  let normalized;
+  switch (align) {
+    case "top":
+      normalized = 'flex-start';
+      break;
+    case "middle":
+      normalized = 'center';
+      break;
+    case 'bottom':
+      normalized = 'flex-end';
+      break;
+    default:
+      normalized = align;
+      break;
+  }
+
+  return normalized;
+}
+
+export function normalizeJustify(justify) {
+  switch (justify) {
+    case "left":
+      return 'flex-start';
+    case "center":
+      return 'center';
+    case 'right':
+      return 'flex-end';
+  }
+}

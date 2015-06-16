@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import HLayoutItem from './horizontal_item';
 import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
-import {getHGutterSizes, mapNonEmpty} from './util';
+import {getHGutterSizes, mapNonEmpty, normalizeAlign, normalizeJustify} from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default class HLayout extends React.Component {
@@ -48,7 +48,6 @@ export default class HLayout extends React.Component {
 
   _getContainerStyles () {
     let justifyItems = normalizeJustify(this.props.justifyItems);
-    let alignItems = normalizeAligment(this.props.alignItems);
 
     let styles = {
       width: this.props.width,
@@ -71,11 +70,6 @@ export default class HLayout extends React.Component {
     styles.WebkitJustifyContent = justifyItems;
     styles.msFlexPack = cssValueToOldFlexSyntax(justifyItems);
     styles.justifyContent = justifyItems;
-    // align-items
-    styles.WebkitBoxAlign = cssValueToOldFlexSyntax(alignItems);
-    styles.WebkitAlignItems = alignItems;
-    styles.msFlexAlign = cssValueToOldFlexSyntax(alignItems);
-    styles.alignItems = alignItems;
 
     return styles;
   }
@@ -84,42 +78,3 @@ export default class HLayout extends React.Component {
 
 HLayout.propTypes = HLayoutPropTypes;
 HLayout.defaultProps = HLayoutDefaultPropTypes;
-
-
-function normalizeJustify(justify) {
-  let justifyItems;
-  switch (justify) {
-    case "left":
-      justifyItems = 'flex-start';
-      break;
-    case "center":
-      justifyItems = 'center';
-      break;
-    case 'right':
-      justifyItems = 'flex-end';
-      break;
-  }
-
-  return justifyItems;
-}
-
-function normalizeAligment(aligment) {
-  let alignItems;
-  switch (aligment) {
-    case "top":
-      alignItems = 'flex-start';
-      break;
-    case "middle":
-      alignItems = 'center';
-      break;
-    case 'bottom':
-      alignItems = 'flex-end';
-      break;
-    default:
-      alignItems = aligment;
-      break;
-  }
-
-  return alignItems;
-}
-

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import {HLayoutItemPropTypes} from './prop_types';
+import {normalizeAlign} from './util';
 import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
 
 export default class HLayoutItem extends React.Component {
@@ -10,7 +11,7 @@ export default class HLayoutItem extends React.Component {
       style: _.extend(this._getStyles(), this.props.style)
     };
 
-    let align = this.props.align || this.props._defaultAlign;
+    let align = this.props.align;
     if (align === 'stretch') {
       return (
         <div {...props}
@@ -41,21 +42,7 @@ export default class HLayoutItem extends React.Component {
       style = prefixFlexProp(style, 0, 0, 'auto');
     }
 
-    let align = this.props.align || this.props._defaultAlign;
-    switch (align) {
-      case "top":
-        align = 'flex-start';
-        break;
-      case "middle":
-        align = 'center';
-        break;
-      case 'bottom':
-        align = 'flex-end';
-        break;
-      default:
-        align = align;
-        break;
-    }
+    let align = normalizeAlign(this.props.align);
 
     // Browser vendor prefixes
     // align-self
@@ -64,12 +51,11 @@ export default class HLayoutItem extends React.Component {
     style.alignSelf = align;
 
 
-    let gutterType = 'margin';
     if (_.isNumber(_gutterLeft)) {
-      style[gutterType + 'Left'] = _gutterLeft;
+      style.marginLeft = _gutterLeft;
     }
     if (_.isNumber(_gutterRight)) {
-      style[gutterType + 'Right'] = _gutterRight;
+      style.marginRight = _gutterRight;
     }
 
     return style;
