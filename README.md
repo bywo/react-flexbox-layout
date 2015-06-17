@@ -4,6 +4,7 @@ Simple flexible layouts for IE9+
 ## Assumptions
 
 * `* { box-sizing: box-sizing }`
+* Horizontal layout items adding to 100%, due to margins you can't add items suming up to 100% (expand on this)
 
 ## Set up
 
