@@ -21,4 +21,5 @@ Simple flexible layouts for IE9+
 
 # Contributing
 
-* `npm install` && `'npm run build'`
+* Install deps: `npm install`
+* Run watcher: `npm run watch`
