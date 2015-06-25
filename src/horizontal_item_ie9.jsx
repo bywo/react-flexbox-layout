@@ -138,3 +138,4 @@ export default class HLayoutItemIE9 extends React.Component {
 }
 
 HLayoutItemIE9.propTypes = HLayoutItemPropTypes;
+HLayoutItemIE9._isLayoutChild = true;

@@ -1,5 +1,17 @@
 import React from 'react';
 
+function layoutItemChildrenChecker(props, propName, componentName) {
+  if (React.Children.count(props[propName]) > 1) {
+    return new Error(`Can't provide more than one child to ${componentName}.`);
+  }
+}
+
+function shouldNotExist(props, propName, componentName) {
+  if (props.hasOwnProperty(propName)) {
+    return new Error(`Invalid prop ${propName} supplied to ${componentName}.`);
+  }
+}
+
 //
 // Horizontal Layout
 //
@@ -14,7 +26,7 @@ export let HLayoutPropTypes = {
 
 export let HLayoutDefaultPropTypes = {
   justifyItems: 'left',
-  alignItems: 'stretch',
+  alignItems: 'top',
   gutter: 0,
   gutterUnit: 'px'
 };
@@ -24,9 +36,12 @@ export let HLayoutItemPropTypes = {
   height: React.PropTypes.any,
   flexGrow: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
   align: React.PropTypes.oneOf(['top', 'middle', 'baseline', 'bottom', 'stretch']),
+  justify: shouldNotExist,
 
   gutterLeft: React.PropTypes.number,
   gutterRight: React.PropTypes.number,
+
+  children: layoutItemChildrenChecker,
 
   // Used internally by HLayout
   _gutterLeft: React.PropTypes.string,
@@ -57,10 +72,13 @@ export let VLayoutItemPropTypes = {
   width: React.PropTypes.any,
   height: React.PropTypes.any,
   flexGrow: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
+  align: shouldNotExist,
   justify: React.PropTypes.oneOf(['left', 'center', 'right', 'stretch']),
 
   gutterTop: React.PropTypes.number,
   gutterBottom: React.PropTypes.number,
+
+  children: layoutItemChildrenChecker,
 
   // Used internally by VLayout
   _gutterTop: React.PropTypes.string,

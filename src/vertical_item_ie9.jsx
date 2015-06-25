@@ -11,7 +11,6 @@ export default class VLayoutItemIE9 extends React.Component {
   }
 
   render() {
-
     return (
       <div data-display-name="VLayoutItemWrapper" style={this._getItemWrapperStyles()}>
         <div ref="inner" style={this._getItemStyles()}
@@ -107,4 +106,4 @@ export default class VLayoutItemIE9 extends React.Component {
 
 
 VLayoutItemIE9.propTypes = VLayoutItemPropTypes;
-
+VLayoutItemIE9._isLayoutChild = true;

@@ -8,7 +8,9 @@ var webpackConfig = {
   },
   output: {
     path: './dist',
-    filename: 'react-flexbox-layout.js'
+    filename: 'react-flexbox-layout.js',
+    library: "Layout",
+    libraryTarget: "umd"
   },
   devtool: 'source-map',
   module: {
@@ -18,7 +20,17 @@ var webpackConfig = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
-  }
+  },
+  externals: [
+    {
+      "react": {
+        root: "React",
+        commonjs2: "react",
+        commonjs: "react",
+        amd: "react"
+      }
+    }
+  ]
 };
 
 

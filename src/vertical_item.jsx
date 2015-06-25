@@ -61,5 +61,4 @@ export default class VLayoutItem extends React.Component {
 }
 
 VLayoutItem.propTypes = VLayoutItemPropTypes;
-
-
+VLayoutItem._isLayoutChild = true;

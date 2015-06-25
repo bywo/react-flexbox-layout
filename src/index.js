@@ -1,44 +1,49 @@
 import hasFlexbox from './modernizr';
 
-import HLayoutFlex from './horizontal';
+import makeHLayoutFlex from './horizontal';
 import HLayoutItemFlex from './horizontal_item';
-import VLayoutFlex from './vertical';
+import makeVLayoutFlex from './vertical';
 import VLayoutItemFlex from './vertical_item';
 
-import HLayoutIE9 from './horizontal_ie9';
+import makeHLayoutIE9 from './horizontal_ie9';
 import HLayoutItemIE9 from './horizontal_item_ie9';
-import VLayoutIE9 from './vertical_ie9';
+import makeVLayoutIE9 from './vertical_ie9';
 import VLayoutItemIE9 from './vertical_item_ie9';
 
 
-let HLayout, HLayoutItem, VLayout, VLayoutItem;
+let makeHLayout, HLayoutItem, makeVLayout, VLayoutItem;
 
 if (!hasFlexbox()) {
-  HLayout = HLayoutIE9;
+  makeHLayout = makeHLayoutIE9;
   HLayoutItem = HLayoutItemIE9;
-  VLayout = VLayoutIE9;
+  makeVLayout = makeVLayoutIE9;
   VLayoutItem = VLayoutItemIE9;
 } else {
-  HLayout = HLayoutFlex;
+  makeHLayout = makeHLayoutFlex;
   HLayoutItem = HLayoutItemFlex;
-  VLayout = VLayoutFlex;
+  makeVLayout = makeVLayoutFlex;
   VLayoutItem = VLayoutItemFlex;
 }
 
-// Export both for convenience for our style guide, since we wanna explicitly
-// see on other browser how the IE9 layout is working.
-export {
-  HLayout,
-  HLayoutItem,
-  VLayout,
-  VLayoutItem,
+function createCustomClasses({
+  defaultGutter = 0,
+  gutterMultiplier = 1,
+  defaultGutterUnit = 'px'
+} = {}) {
 
-  HLayoutIE9,
-  HLayoutItemIE9,
-  VLayoutIE9,
-  VLayoutItemIE9
-};
+  return {
+    HLayout: makeHLayout(defaultGutter, gutterMultiplier, defaultGutterUnit),
+    HLayoutItem,
+    VLayout: makeVLayout(defaultGutter, gutterMultiplier, defaultGutterUnit),
+    VLayoutItem
+  };
 
+}
+
+let toExport = createCustomClasses();
+toExport.createCustomClasses = createCustomClasses;
+
+export default toExport;
 
 // TODO: move into util
 function addStyleString(str) {
@@ -52,8 +57,8 @@ document.addEventListener("DOMContentLoaded", function() {
   addStyleString(`
 .appLayoutGrowChildAbsolute { position: relative; }
 .appLayoutGrowChildAbsolute > * { position: absolute; width: 100%; height: 100%; }
-.appLayoutGrowChildFlex { display: flex; }
-.appLayoutGrowChildFlex > * { flex: 1; position: relative; }
+.appLayoutGrowChildFlex { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }
+.appLayoutGrowChildFlex > * { -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; position: relative; }
 .appLayoutGrowChildStatic > * { height: 100%; }
   `);
 });

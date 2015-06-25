@@ -63,5 +63,4 @@ export default class HLayoutItem extends React.Component {
 }
 
 HLayoutItem.propTypes = HLayoutItemPropTypes;
-
-
+HLayoutItem._isLayoutChild = true;
