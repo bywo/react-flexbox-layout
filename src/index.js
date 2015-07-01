@@ -43,6 +43,8 @@ function createCustomClasses({
 let toExport = createCustomClasses();
 toExport.createCustomClasses = createCustomClasses;
 
+toExport.EXPAND_CHILD = 'reactFlexboxLayoutExpandChild';
+
 export default toExport;
 
 // TODO: move into util
@@ -52,13 +54,27 @@ function addStyleString(str) {
   document.head.appendChild(node);
 }
 
-// TODO: move into shared file
+const flexGrowParentRules = '{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }';
+const flexGrowChildRules = '{ -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; position: relative; }';
+
+const staticGrowChildRules = '{ width: 100%; height: 100%; }';
+
 document.addEventListener("DOMContentLoaded", function() {
   addStyleString(`
-.appLayoutGrowChildAbsolute { position: relative; }
-.appLayoutGrowChildAbsolute > * { position: absolute; width: 100%; height: 100%; }
-.appLayoutGrowChildFlex { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }
-.appLayoutGrowChildFlex > * { -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; position: relative; }
-.appLayoutGrowChildStatic > * { height: 100%; }
+.appLayoutGrowChildFlex ${flexGrowParentRules}
+.appLayoutGrowChildFlex > * ${flexGrowChildRules}
+
+.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} ${flexGrowParentRules}
+.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > * ${flexGrowChildRules}
+
+.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} ${flexGrowParentRules}
+.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} > * ${flexGrowChildRules}
+
+
+.appLayoutGrowChildStatic > * ${staticGrowChildRules}
+
+.appLayoutGrowChildStatic > .${toExport.EXPAND_CHILD} > * ${staticGrowChildRules}
+
+.appLayoutGrowChildStatic > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} > * ${staticGrowChildRules}
   `);
 });
