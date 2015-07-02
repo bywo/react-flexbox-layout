@@ -3,8 +3,24 @@ Simple flexible layouts for IE9+
 
 ## Assumptions
 
-* `* { box-sizing: box-sizing }`
-* Horizontal layout items adding to 100%, due to margins you can't add items suming up to 100% (expand on this)
+* `* { box-sizing: border-box }`
+* `flex-wrap: nowrap` - wrapping is not supported. `LayoutItems` will simply overflow if they're too big.
+* When `gutter`s are applied, dimensions won't add 100% because gutters add a non-percentage width. Use `flexGrow` to take up remaining space instead. e.g.
+```jsx
+// won't work. will overflow.
+<HLayout gutter="10px">
+  <HLayoutItem width="33%">a</HLayoutItem>
+  <HLayoutItem width="33%">b</HLayoutItem>
+  <HLayoutItem width="33%">c</HLayoutItem>
+</HLayout>
+
+// will work
+<HLayout gutter="10px">
+  <HLayoutItem flexGrow>a</HLayoutItem>
+  <HLayoutItem flexGrow>b</HLayoutItem>
+  <HLayoutItem flexGrow>c</HLayoutItem>
+</HLayout>
+```
 
 ## Set up
 
@@ -14,9 +30,7 @@ Simple flexible layouts for IE9+
 
 * add webpack config to be able to build it and compile it (see what stuff is not working and solve any building errors)
 * build an example page and make it work with the current impl
-* migrate the api to be able to use px or rems
 * react-style? move it out? should not be used inside the render neither.
-* make the gutters configuration be part of the settings of the component
 * tests?
 
 # Troubleshooting
