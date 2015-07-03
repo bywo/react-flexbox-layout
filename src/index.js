@@ -54,10 +54,10 @@ function addStyleString(str) {
   document.head.appendChild(node);
 }
 
-const flexGrowParentRules = '{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }';
+const flexGrowParentRules = '{ display: -webkit-box !important; display: -webkit-flex !important; display: -ms-flexbox !important; display: flex !important; }';
 const flexGrowChildRules = '{ -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; position: relative; }';
 
-const staticGrowChildRules = '{ width: 100%; height: 100%; }';
+const staticGrowChildRules = '{ display: block !important; width: 100%; height: 100%; }';
 
 document.addEventListener("DOMContentLoaded", function() {
   addStyleString(`

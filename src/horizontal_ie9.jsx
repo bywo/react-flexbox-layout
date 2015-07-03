@@ -69,7 +69,8 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
     _unsetLayoutStyles() {
       const style = this.node.style;
 
-      if (!this.props.height) {
+      var didUserDefineHeight = (this.props.height || (this.props.style && this.props.style.height)) != null;
+      if (!didUserDefineHeight) {
         style.height = '';
       }
       style.whiteSpace = '';
