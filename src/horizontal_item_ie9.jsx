@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import {didDefineWidth} from './util';
 import {HLayoutItemPropTypes} from './prop_types';
 
 
@@ -14,7 +15,8 @@ export default class HLayoutItemIE9 extends React.Component {
       return (
         <div ref="inner"
           data-display-name="HLayoutItem"
-          className={this._getClassname()}
+          {...this.props}
+          className={this.props.className ? this.props.className + ' ' + this._getClassname() : this._getClassname()}
           style={_.extend(this._getInnerStyles(), this._getWrapperStyles(), this.props.style)}
         >
           {this.props.children}
@@ -22,7 +24,7 @@ export default class HLayoutItemIE9 extends React.Component {
       );
     } else {
       return (
-        <div data-display-name="HLayoutItemWrapper" style={_.extend(this._getWrapperStyles())}>
+        <div data-display-name="HLayoutItemWrapper" {...this.props} style={_.extend(this._getWrapperStyles())}>
           <div style={{display: 'inline-block', verticalAlign: 'middle', width: 0, overflow: 'hidden'}}>a</div>
           <div ref="inner"
             data-display-name="HLayoutItem"
@@ -39,7 +41,7 @@ export default class HLayoutItemIE9 extends React.Component {
   _unsetLayoutStyles() {
     const style = this.node.style;
 
-    if (!this.props.width) {
+    if (!didDefineWidth(this.props)) {
       style.width = '';
     }
 

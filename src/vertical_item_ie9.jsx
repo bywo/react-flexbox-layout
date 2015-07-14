@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import {didDefineWidth, didDefineHeight} from './util';
 import {VLayoutItemPropTypes} from './prop_types';
 
 
@@ -12,7 +13,11 @@ export default class VLayoutItemIE9 extends React.Component {
 
   render() {
     return (
-      <div data-display-name="VLayoutItemWrapper" style={this._getItemWrapperStyles()}>
+      <div
+        data-display-name="VLayoutItemWrapper"
+        {...this.props}
+        style={_.extend(this._getItemWrapperStyles(), this.props.style)}
+      >
         <div ref="inner" style={this._getItemStyles()}
           data-display-name="VLayoutItem"
           className={this._getClassname()}
@@ -27,11 +32,11 @@ export default class VLayoutItemIE9 extends React.Component {
   _unsetLayoutStyles() {
     const style = this.node.style;
 
-    if (!this.props.width) {
+    if (!didDefineWidth(this.props)) {
       style.width = '';
     }
 
-    if (!this.props.height) {
+    if (!didDefineHeight(this.props)) {
       style.height = '';
     }
 

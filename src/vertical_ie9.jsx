@@ -5,7 +5,8 @@ import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
 import {
   getVGutterSizes, makeVLayoutItemChildProps,
   forEachNonEmpty, mapNonEmpty, countNonEmpty,
-  sumSizes, addTo, getSizeCalc
+  sumSizes, addTo, getSizeCalc,
+  didDefineHeight
 } from './util';
 import {register, deregister, requestAsyncUpdate} from './update_engine_ie9';
 
@@ -39,6 +40,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
       return (
         <div ref="wrapper" data-display-name="VLayoutWrapper"
+          {...this.props}
           style={_.extend(this._getLayoutWrapperStyles(), this.props.style)}
         >
           <div ref="container" data-display-name="VLayout"
@@ -67,8 +69,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
     _unsetLayoutStyles() {
       const style = this.node.style;
 
-      var didUserDefineHeight = (this.props.height || (this.props.style && this.props.style.height)) != null;
-      if (!didUserDefineHeight) {
+      if (!didDefineHeight(this.props)) {
         style.height = '';
       }
 
@@ -136,7 +137,9 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       if (this._isFlexboxLayout()) {
         styles.display = 'block';
       } else {
-        styles.display = 'table';
+        // NOTE: use !important override appLayoutGrowChildStatic className, which uses display: block !important
+        // to override children who use display: inline-block
+        styles.display = 'table !important';
         styles.tableLayout = 'fixed';
       }
 

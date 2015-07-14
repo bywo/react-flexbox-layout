@@ -26,6 +26,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       return (
         <div
           data-display-name="VLayout"
+          {...this.props}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}

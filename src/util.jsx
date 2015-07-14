@@ -175,3 +175,11 @@ export function makeHLayoutItemChildProps(parentProps, childProps, index, gutter
 
   return props;
 }
+
+export function didDefineWidth(props) {
+  return props.width != null || (props.style && props.style.width) != null;
+}
+
+export function didDefineHeight(props) {
+  return props.height != null || (props.style && props.style.height) != null;
+}
