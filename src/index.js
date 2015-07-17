@@ -55,7 +55,7 @@ function addStyleString(str) {
 }
 
 const flexGrowParentRules = '{ display: -webkit-box !important; display: -webkit-flex !important; display: -ms-flexbox !important; display: flex !important; }';
-const flexGrowChildRules = '{ -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; position: relative; -ms-flex: 1 0 auto;}';
+const flexGrowChildRules = '{ -webkit-box-flex: 1; -webkit-flex: 1 0 auto; -ms-flex: 1 0 auto; flex: 1 0 auto; position: relative;}';
 
 const staticGrowChildRules = '{ display: block !important; width: 100%; height: 100%; }';
 
