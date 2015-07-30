@@ -82,6 +82,21 @@ export let VLayoutItemPropTypes = {
 
   // Used internally by VLayout
   _gutterTop: React.PropTypes.string,
-  _gutterBottom: React.PropTypes.string
+  _gutterBottom: React.PropTypes.string,
+
+  style: function (props, propName, componentName) {
+    const DANGEROUS_STYLES = [
+      "padding", "paddingTop", "paddingBottom", "paddingLeft", "paddingRight",
+      "margin", "marginTop", "marginBottom", "marginLeft", "marginRight",
+      "height", "width", "display", "position", "float",
+    ];
+
+    DANGEROUS_STYLES.forEach(function (dangerousStyle) {
+      if (props[propName] && props[propName].hasOwnProperty(dangerousStyle)) {
+        console.warn(`${componentName} ${propName} can't have ${dangerousStyle}`);
+        return new Error(`${componentName} ${propName} can't have ${dangerousStyle}`);
+      }
+    });
+  }
 };
 
