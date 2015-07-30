@@ -23,7 +23,8 @@
     "semi-spacing": 0,
     "semi-spacing": 0,
     "no-unused-expressions": 0,
-    "dot-notation": [2, {"allowPattern": "^NODE_ENV$"}]
+    "dot-notation": [2, {"allowPattern": "^NODE_ENV$"}],
+    "comma-dangle": 0,
   },
   "plugins": [
     "react"
