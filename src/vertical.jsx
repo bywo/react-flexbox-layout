@@ -16,7 +16,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       let children = mapNonEmpty(this.props.children, (child, index) => {
         let props = makeVLayoutItemChildProps(this.props, child.props, index, gutterSizes, gutterMultiplier);
 
-        if (child.type._isLayoutChild) {
+        if (child.type && child.type._isLayoutChild) {
           return React.cloneElement(child, props);
         } else {
           return <VLayoutItem {...props}>{child}</VLayoutItem>;

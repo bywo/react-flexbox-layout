@@ -50,8 +50,8 @@ function getGutterSizes(gutterPrevKey, gutterNextKey, children, defaultGutter) {
 
   // fill in gutters specified on children
   forEachNonEmpty(children, (child, index) => {
-    let gutterPrev = child.props[gutterPrevKey],
-        gutterNext = child.props[gutterNextKey];
+    let gutterPrev = child.props && child.props[gutterPrevKey],
+        gutterNext = child.props && child.props[gutterNextKey];
 
     if (index === 0) {
       gutterSizes[0] = gutterPrev;
@@ -152,7 +152,7 @@ export function normalizeJustify(justify) {
   }
 }
 
-export function makeVLayoutItemChildProps(parentProps, childProps, index, gutterSizes, gutterMultiplier) {
+export function makeVLayoutItemChildProps(parentProps, childProps = {}, index, gutterSizes, gutterMultiplier) {
   var props = {};
 
   if (index === 0) {
@@ -164,7 +164,7 @@ export function makeVLayoutItemChildProps(parentProps, childProps, index, gutter
   return props;
 }
 
-export function makeHLayoutItemChildProps(parentProps, childProps, index, gutterSizes, gutterMultiplier) {
+export function makeHLayoutItemChildProps(parentProps, childProps = {}, index, gutterSizes, gutterMultiplier) {
   var props = {};
 
   if (index === 0) {

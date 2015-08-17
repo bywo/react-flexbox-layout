@@ -59,7 +59,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       this.itemsRefs.push(ref);
       props.ref = ref;
 
-      if (child.type._isLayoutChild) {
+      if (child.type && child.type._isLayoutChild) {
         return React.cloneElement(child, props);
       } else {
         return <VLayoutItemIE9 {...props}>{child}</VLayoutItemIE9>;
