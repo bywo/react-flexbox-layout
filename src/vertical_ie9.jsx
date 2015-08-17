@@ -111,10 +111,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         .map(item => item.props.flexGrow === true ? 1 : item.props.flexGrow)
         .sum();
 
-      // sum widths used up by elements
+      // sum heights used up by elements
       const usedSpace = sumSizes('height', items);
 
-      // add computed widths
+      // add computed heights
       addTo(usedSpace, 'px', _.sum(this._measuredHeights));
 
       // add gutters

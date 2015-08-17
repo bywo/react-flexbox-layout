@@ -183,3 +183,8 @@ export function didDefineWidth(props) {
 export function didDefineHeight(props) {
   return props.height != null || (props.style && props.style.height) != null;
 }
+
+export function pxToUnit(dimensionString) {
+  if (!dimensionString) { return 0; }
+  return parseInt(dimensionString.slice(0, -2), 10);
+}

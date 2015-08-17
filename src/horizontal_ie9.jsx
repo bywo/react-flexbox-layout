@@ -6,7 +6,8 @@ import {
   getHGutterSizes, makeHLayoutItemChildProps,
   mapNonEmpty, countNonEmpty,
   sumSizes, addTo, getSizeCalc,
-  didDefineHeight
+  didDefineHeight,
+  pxToUnit
 } from './util';
 import {register, deregister, requestAsyncUpdate} from './update_engine_ie9';
 
@@ -138,13 +139,17 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
     _applyFlexHeights() {}
 
     _setContainerHeights() {
-      const height = `${this.node.offsetHeight}px`;
+      const height = this.node.offsetHeight;
       const style = this.node.style;
+      const computedStyle = window.getComputedStyle(this.node);
+      const heightWithoutPadding = height - pxToUnit(computedStyle.paddingTop) - pxToUnit(computedStyle.paddingBottom);
 
-      style.height = height;
+      const heightString = `${height}px`;
+      const heightWithoutPaddingString = `${heightWithoutPadding}px`;
 
+      style.height = heightString;
       const items = this.itemsRefs.map(ref => this.refs[ref]);
-      _.invoke(items, '_setContainerHeight', height);
+      _.invoke(items, '_setContainerHeight', heightWithoutPaddingString);
     }
 
     _getLayoutStyles () {

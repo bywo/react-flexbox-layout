@@ -21,7 +21,14 @@ export let HLayoutPropTypes = {
   gutter: React.PropTypes.number,
   gutterUnit: React.PropTypes.string,
   width: React.PropTypes.any,
-  height: React.PropTypes.any
+  height: React.PropTypes.any,
+  style: function (props, propName, componentName) {
+    for (let property of layoutDangerousStyles) {
+      if (props[propName] && props[propName].hasOwnProperty(property)) {
+        return new Error(`${componentName} ${propName} can't have ${property}.`);
+      }
+    }
+  }
 };
 
 export let HLayoutDefaultPropTypes = {
@@ -45,7 +52,27 @@ export let HLayoutItemPropTypes = {
 
   // Used internally by HLayout
   _gutterLeft: React.PropTypes.string,
-  _gutterRight: React.PropTypes.string
+  _gutterRight: React.PropTypes.string,
+
+  style: function (props, propName, componentName) {
+    for (let property of layoutItemDangerousStyles) {
+      if (props[propName] && props[propName].hasOwnProperty(property)) {
+        return new Error(`${componentName} ${propName} can't have ${property}.`);
+      }
+    }
+
+    if (props.flexGrow &&
+      ((props[propName] && props[propName].hasOwnProperty('width')) || props.hasOwnProperty('width'))
+    ) {
+      return new Error(`${componentName} can't define width when flexGrow is set.`);
+    }
+
+    if (props.align === 'stretch' &&
+      ((props[propName] && props[propName].hasOwnProperty('height')) || props.hasOwnProperty('height'))
+    ) {
+      return new Error(`${componentName} can't define height when align=stretch.`);
+    }
+  }
 };
 
 
@@ -58,7 +85,14 @@ export let VLayoutPropTypes = {
   gutter: React.PropTypes.number,
   gutterUnit: React.PropTypes.string,
   width: React.PropTypes.any,
-  height: React.PropTypes.any
+  height: React.PropTypes.any,
+  style: function (props, propName, componentName) {
+    for (let property of layoutDangerousStyles) {
+      if (props[propName] && props[propName].hasOwnProperty(property)) {
+        return new Error(`${componentName} ${propName} can't have ${property}.`);
+      }
+    }
+  }
 };
 
 export let VLayoutDefaultPropTypes = {
@@ -85,18 +119,32 @@ export let VLayoutItemPropTypes = {
   _gutterBottom: React.PropTypes.string,
 
   style: function (props, propName, componentName) {
-    const DANGEROUS_STYLES = [
-      "padding", "paddingTop", "paddingBottom", "paddingLeft", "paddingRight",
-      "margin", "marginTop", "marginBottom", "marginLeft", "marginRight",
-      "height", "width", "display", "position", "float",
-    ];
-
-    DANGEROUS_STYLES.forEach(function (dangerousStyle) {
-      if (props[propName] && props[propName].hasOwnProperty(dangerousStyle)) {
-        console.warn(`${componentName} ${propName} can't have ${dangerousStyle}`);
-        return new Error(`${componentName} ${propName} can't have ${dangerousStyle}`);
+    for (let property of layoutItemDangerousStyles) {
+      if (props[propName] && props[propName].hasOwnProperty(property)) {
+        return new Error(`${componentName} ${propName} can't have ${property}`);
       }
-    });
+    }
+
+    if (props.flexGrow &&
+      ((props[propName] && props[propName].hasOwnProperty('height')) || props.hasOwnProperty('height'))
+    ) {
+      return new Error(`${componentName} can't define height when flexGrow is set`);
+    }
+
+    if (props.justify === 'stretch' &&
+      ((props[propName] && props[propName].hasOwnProperty('width')) || props.hasOwnProperty('width'))
+    ) {
+      return new Error(`${componentName} can't define width when justify=stretch`);
+    }
   }
 };
 
+const everythingDangerousStyles = [
+  "display", "position", "float"
+];
+
+const layoutDangerousStyles = everythingDangerousStyles;
+
+const layoutItemDangerousStyles = everythingDangerousStyles.concat([
+  "margin", "marginTop", "marginBottom", "marginLeft", "marginRight"
+]);
