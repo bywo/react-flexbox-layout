@@ -156,7 +156,7 @@ export function makeVLayoutItemChildProps(parentProps, childProps = {}, index, g
   var props = {};
 
   if (index === 0) {
-    props._gutterTop = gutterSizes[0] ? gutterSizes[0] * gutterMultiplier + this.props.gutterUnit : undefined;
+    props._gutterTop = gutterSizes[0] ? gutterSizes[0] * gutterMultiplier + parentProps.gutterUnit : undefined;
   }
   props._gutterBottom = gutterSizes[index + 1] ? gutterSizes[index + 1] * gutterMultiplier + parentProps.gutterUnit : undefined;
   props.justify = childProps.justify || parentProps.justifyItems;
@@ -168,7 +168,7 @@ export function makeHLayoutItemChildProps(parentProps, childProps = {}, index, g
   var props = {};
 
   if (index === 0) {
-    props._gutterLeft = gutterSizes[0] ? gutterSizes[0] * gutterMultiplier + this.props.gutterUnit : undefined;
+    props._gutterLeft = gutterSizes[0] ? gutterSizes[0] * gutterMultiplier + parentProps.gutterUnit : undefined;
   }
   props._gutterRight = gutterSizes[index + 1] ? gutterSizes[index + 1] * gutterMultiplier + parentProps.gutterUnit : undefined;
   props.align = childProps.align || parentProps.alignItems;
