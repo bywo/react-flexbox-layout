@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./src -d lib",
+    "build": "rm -r lib && babel ./src -d lib",
     "watch": "babel ./src --watch -d lib",
     "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline",
     "prepublish": "npm run build"

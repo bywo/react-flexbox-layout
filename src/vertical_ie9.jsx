@@ -6,7 +6,7 @@ import {
   getVGutterSizes, makeVLayoutItemChildProps,
   forEachNonEmpty, mapNonEmpty, countNonEmpty,
   sumSizes, addTo, getSizeCalc,
-  didDefineHeight
+  didDefineHeight, didDefineWidth
 } from './util';
 import {register, deregister, requestAsyncUpdate} from './update_engine_ie9';
 
@@ -73,6 +73,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         style.height = '';
       }
 
+      if (!didDefineWidth(this.props)) {
+        style.width = '';
+      }
+
       _.range(countNonEmpty(this.props.children)).forEach((i) => {
         this.refs[`item_${i}`]._unsetLayoutStyles();
       }, this);
@@ -90,7 +94,12 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       _.invoke(items, '_applyInheritedStyles', this._inheritedTextAlign);
     }
 
-    _applyWidths() {}
+    _applyWidths() {
+      if (!didDefineWidth(this.props)) {
+        // our element is display:table, so add width:100% to make it behave like a block element
+        this.node.style.width = '100%';
+      }
+    }
 
     _measureItemHeights() {
       const items = this.itemsRefs.map(ref => this.refs[ref]);
@@ -130,7 +139,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
     _getLayoutWrapperStyles() {
       let styles = {
-        width: this.props.width || '100%',
+        width: this.props.width,
         height: this.props.height
       };
 

@@ -6,7 +6,7 @@ import {
   getHGutterSizes, makeHLayoutItemChildProps,
   mapNonEmpty, countNonEmpty,
   sumSizes, addTo, getSizeCalc,
-  didDefineHeight,
+  didDefineHeight, didDefineWidth,
   pxToUnit
 } from './util';
 import {register, deregister, requestAsyncUpdate} from './update_engine_ie9';
@@ -131,6 +131,8 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         const item = this.refs[`item_${i}`];
         if (item.props.flexGrow) {
           return item._applyWidth(getSizeCalc(usedSpace, item.props.flexGrow, totalFlexGrow));
+        } else if (!didDefineWidth(item.props)) {
+          item._applyWidth(this._measuredWidths[i]);
         }
       });
     }
