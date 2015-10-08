@@ -31,10 +31,52 @@ export function deregister(component) {
   }
 }
 
+var scrolledElements = [];
+function saveScrollPositions() {
+  var els = document.getElementsByTagName('*');
+  var el,
+      len = els.length,
+      scrollLeft, scrollTop;
+
+  for (var i = 0; i < len; i++) {
+    el = els[i];
+
+    scrollLeft = el.scrollLeft;
+    scrollTop = el.scrollTop;
+
+    if (scrollLeft > 0 || scrollTop > 0) {
+      scrolledElements.push({el, scrollLeft, scrollTop});
+    }
+  }
+}
+
+function restoreScrollPositions() {
+  var len = scrolledElements.length;
+
+  for (var i = 0; i < len; i++) {
+    let position = scrolledElements[i];
+    let {el, scrollLeft, scrollTop} = position;
+
+    if (scrollLeft > 0) {
+      el.scrollLeft = scrollLeft;
+    }
+    if (scrollTop > 0) {
+      el.scrollTop = scrollTop;
+    }
+  }
+
+  if (len > 0) {
+    scrolledElements = [];
+  }
+}
+
 /**
  * update synchronously updates all registered Layout components
  */
 export function update() {
+  // before we start, save scroll positions because unsetting layout styles may mess up scrolling
+  saveScrollPositions();
+
   // first unset all styles, since existing styles will mess with measurements
   _.invoke(components, '_unsetLayoutStyles');
 
@@ -55,6 +97,9 @@ export function update() {
   // parent Layout heights (e.g., child is vertical flexGrow on parent). In-order traversal of array works because of the
   // invariant described above: parent Layout components will have lower index than child Layout components.
   _.invoke(components, '_setContainerHeights');
+
+  // now restore prev scroll positions
+  restoreScrollPositions();
 }
 
 /**
