@@ -108,4 +108,4 @@ export function update() {
 export const requestAsyncUpdate = _.debounce(update, 50);
 
 // update on window resize
-window.addEventListener('resize', _.debounce(update, 50));
+window.addEventListener('resize', requestAsyncUpdate);
