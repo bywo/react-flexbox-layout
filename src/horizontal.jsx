@@ -10,6 +10,14 @@ import {prefixDisplayFlex, cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   class HLayout extends React.Component {
+    componentDidMount() {
+      this.props.onLayout && this.props.onLayout();
+    }
+
+    componentDidUpdate() {
+      this.props.onLayout && this.props.onLayout();
+    }
+
     render() {
       let gutterSizes = getHGutterSizes(this.props.children, this.props.gutter);
 

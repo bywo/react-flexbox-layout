@@ -28,7 +28,8 @@ export let HLayoutPropTypes = {
         return new Error(`${componentName} ${propName} can't have ${property}.`);
       }
     }
-  }
+  },
+  onLayout: React.PropTypes.func
 };
 
 export let HLayoutDefaultPropTypes = {
@@ -92,7 +93,8 @@ export let VLayoutPropTypes = {
         return new Error(`${componentName} ${propName} can't have ${property}.`);
       }
     }
-  }
+  },
+  onLayout: React.PropTypes.func
 };
 
 export let VLayoutDefaultPropTypes = {

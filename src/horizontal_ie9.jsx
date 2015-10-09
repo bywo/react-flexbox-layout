@@ -154,6 +154,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       _.invoke(items, '_setContainerHeight', heightWithoutPaddingString);
     }
 
+    _callDidLayout() {
+      this.props.onLayout && this.props.onLayout();
+    }
+
     _getLayoutStyles () {
       let styles = {
         display: 'block',

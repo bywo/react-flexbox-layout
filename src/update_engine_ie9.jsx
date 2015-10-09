@@ -100,6 +100,8 @@ export function update() {
 
   // now restore prev scroll positions
   restoreScrollPositions();
+
+  _.invoke(components, '_callDidLayout');
 }
 
 /**

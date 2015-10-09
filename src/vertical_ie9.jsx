@@ -137,6 +137,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       });
     }
 
+    _callDidLayout() {
+      this.props.onLayout && this.props.onLayout();
+    }
+
     _getLayoutWrapperStyles() {
       let styles = {
         width: this.props.width,
