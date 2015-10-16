@@ -94,8 +94,8 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
     _measureWidths() {
       this._measuredWidths = _.range(countNonEmpty(this.props.children)).map((i) => {
         const item = this.refs[`item_${i}`];
-        if (item.props.width || item.props.flexGrow) {
-          return 0;
+        if (didDefineWidth(item.props) || item.props.flexGrow) {
+          return null;
         }
         return item._measureWidth();
       });
@@ -122,7 +122,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       const usedSpace = sumSizes('width', items);
 
       // add computed widths
-      addTo(usedSpace, 'px', _.sum(this._measuredWidths));
+      const measuredWidthsAsNumbers = this._measuredWidths
+        .filter(i => i !== null)
+        .map(measurement => parseFloat(measurement.slice(0, -2)));
+      addTo(usedSpace, 'px', _.sum(measuredWidthsAsNumbers));
 
       // add gutters
       addTo(usedSpace, this.props.gutterUnit, _.sum(this.gutterSizes));

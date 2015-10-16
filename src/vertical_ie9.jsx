@@ -105,8 +105,8 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       const items = this.itemsRefs.map(ref => this.refs[ref]);
 
       this._measuredHeights = items.map((item) => {
-        if (item.props.height || item.props.flexGrow) {
-          return 0;
+        if (didDefineHeight(item.props) || item.props.flexGrow) {
+          return null;
         }
         return item._measureHeight();
       });
@@ -124,7 +124,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       const usedSpace = sumSizes('height', items);
 
       // add computed heights
-      addTo(usedSpace, 'px', _.sum(this._measuredHeights));
+      const measuredHeightsAsNumbers = this._measuredHeights
+        .filter(i => i !== null)
+        .map(measurement => parseFloat(measurement.slice(0, -2)));
+      addTo(usedSpace, 'px', _.sum(measuredHeightsAsNumbers));
 
       // add gutters
       addTo(usedSpace, this.props.gutterUnit, _.sum(this.gutterSizes));

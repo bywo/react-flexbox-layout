@@ -86,7 +86,7 @@ export function sumSizes(dimension, items) {
   const sum = {};
 
   items.forEach((item) => {
-    const size = item.props[dimension];
+    const size = item.props[dimension] || (item.props.style && item.props.style[dimension]);
     if (size === undefined || size === null) { return; }
     if (_.isNumber(size)) {
       addTo(sum, 'px', size);
@@ -94,7 +94,7 @@ export function sumSizes(dimension, items) {
       let matches = sizeRegex.exec(size);
       if (matches) {
         let [, value, unit] = matches;
-        addTo(sum, unit, parseInt(value, 10));
+        addTo(sum, unit, parseFloat(value));
       }
     }
   });

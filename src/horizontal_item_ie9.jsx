@@ -56,7 +56,7 @@ export default class HLayoutItemIE9 extends React.Component {
   }
 
   _measureWidth() {
-    return this.node.offsetWidth;
+    return getComputedStyle(this.node).width;
   }
 
   _applyInheritedStyles(whiteSpace, textAlign, lineHeight) {

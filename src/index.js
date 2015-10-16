@@ -10,6 +10,8 @@ import HLayoutItemIE9 from './horizontal_item_ie9';
 import makeVLayoutIE9 from './vertical_ie9';
 import VLayoutItemIE9 from './vertical_item_ie9';
 
+import {requestNextLayoutMinDelay} from './update_engine_ie9';
+
 
 let makeHLayout, HLayoutItem, makeVLayout, VLayoutItem;
 
@@ -44,6 +46,8 @@ let toExport = createCustomClasses();
 toExport.createCustomClasses = createCustomClasses;
 
 toExport.EXPAND_CHILD = 'reactFlexboxLayoutExpandChild';
+
+toExport.requestNextLayoutMinDelay = requestNextLayoutMinDelay;
 
 export default toExport;
 

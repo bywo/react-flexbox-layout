@@ -31,52 +31,10 @@ export function deregister(component) {
   }
 }
 
-var scrolledElements = [];
-function saveScrollPositions() {
-  var els = document.getElementsByTagName('*');
-  var el,
-      len = els.length,
-      scrollLeft, scrollTop;
-
-  for (var i = 0; i < len; i++) {
-    el = els[i];
-
-    scrollLeft = el.scrollLeft;
-    scrollTop = el.scrollTop;
-
-    if (scrollLeft > 0 || scrollTop > 0) {
-      scrolledElements.push({el, scrollLeft, scrollTop});
-    }
-  }
-}
-
-function restoreScrollPositions() {
-  var len = scrolledElements.length;
-
-  for (var i = 0; i < len; i++) {
-    let position = scrolledElements[i];
-    let {el, scrollLeft, scrollTop} = position;
-
-    if (scrollLeft > 0) {
-      el.scrollLeft = scrollLeft;
-    }
-    if (scrollTop > 0) {
-      el.scrollTop = scrollTop;
-    }
-  }
-
-  if (len > 0) {
-    scrolledElements = [];
-  }
-}
-
 /**
  * update synchronously updates all registered Layout components
  */
 export function update() {
-  // before we start, save scroll positions because unsetting layout styles may mess up scrolling
-  saveScrollPositions();
-
   // first unset all styles, since existing styles will mess with measurements
   _.invoke(components, '_unsetLayoutStyles');
 
@@ -98,16 +56,46 @@ export function update() {
   // invariant described above: parent Layout components will have lower index than child Layout components.
   _.invoke(components, '_setContainerHeights');
 
-  // now restore prev scroll positions
-  restoreScrollPositions();
-
   _.invoke(components, '_callDidLayout');
 }
 
 /**
  * requestAsyncUpdate guarantees that `update` will be run sometime in the future
  */
-export const requestAsyncUpdate = _.debounce(update, 50);
+export const requestAsyncUpdate = _.debounce(updateAfterDelay, 0);
 
 // update on window resize
-window.addEventListener('resize', requestAsyncUpdate);
+window.addEventListener('resize', _.debounce(requestAsyncUpdate, 16));
+
+var nextDelay = 0;
+/**
+ * Request that the next re-layout be at least @delay ms from now.
+ * @param  {Number} delay
+ */
+export function requestNextLayoutMinDelay(delay) {
+  nextDelay = Math.max(nextDelay, delay);
+}
+
+var delayedUpdate,
+    delayedUpdateTime;
+function updateAfterDelay() {
+  if (nextDelay === 0 && !delayedUpdate) {
+    update();
+    return;
+  }
+
+  var potentialUpdateTime = Date.now() + nextDelay;
+
+  if (!delayedUpdate || potentialUpdateTime > delayedUpdateTime) {
+    clearTimeout(delayedUpdate);
+    delayedUpdateTime = potentialUpdateTime;
+    delayedUpdate = setTimeout(performDelayedUpdate, nextDelay);
+  }
+
+  nextDelay = 0;
+}
+
+function performDelayedUpdate() {
+  delayedUpdate = null;
+  update();
+}
