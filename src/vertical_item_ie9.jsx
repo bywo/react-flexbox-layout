@@ -56,7 +56,7 @@ export default class VLayoutItemIE9 extends React.Component {
   }
 
   _measureHeight() {
-    return getComputedStyle(this.node).height;
+    return window.getComputedStyle(this.node).height;
   }
 
   _applyHeight(height) {
