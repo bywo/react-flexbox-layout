@@ -15,7 +15,12 @@ import {requestNextLayoutMinDelay} from './update_engine_ie9';
 
 let makeHLayout, HLayoutItem, makeVLayout, VLayoutItem;
 
-if (!hasFlexbox()) {
+// don't use compatibility mode if we're in tests, since it'll slow tests down
+// with unnecessary DOM calculations
+const env = process.env.NODE_ENV;
+const isTesting = env === 'test' || env === 'testing';
+
+if (!hasFlexbox() && !isTesting) {
   makeHLayout = makeHLayoutIE9;
   HLayoutItem = HLayoutItemIE9;
   makeVLayout = makeVLayoutIE9;
