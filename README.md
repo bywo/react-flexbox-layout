@@ -55,12 +55,39 @@ For Chrome, Firefox, IE10+, and Safari, native flexbox is used. For IE9, a Javas
 * `gutterBottom`: overrides parent `VLayout`s `gutter`
 * `children: node`: **MUST** be a single child
 
+### `requestNextLayoutMinDelay(n)`
+Request that the next layout occur **at least** this `n` milliseconds from now. Only applies for IE9. Useful for debouncing layouts after rapidly occuring events like keypresses. See `/examples/debounce/app.jsx` for example usage.
+
 ## Gotchas
 
 ### `LayoutItem`s must have style: `box-sizing: border-box`.
 The easiest way to do this is to define this CSS: `* { box-sizing: border-box }`
 ### Flexbox wrapping is not supported.
 `LayoutItems` will simply overflow if they're too big. This is the CSS equivalent to `* { flex-wrap: nowrap }`
+### Scroll position in IE9 is not preserved between layouts
+The JS layout algorithm used in the IE9 shim needs to unset certain styles in order to measure the intrinsic heights of elements. This may cause your scrollable elements to lose their scroll position.
+
+In cases where scroll position is being lost, you should manually save the scroll position before the calculation, and restore the scroll position afterwards.
+
+```jsx
+class MyScrollingContainer extends React.Component {
+  componentWillUpdate() {
+    this._scrollPos = React.findDOMNode(this).scrollTop;
+  }
+
+  restoreScroll() {
+    React.findDOMNode(this).scrollTop = this._scrollPos;
+  }
+
+  render() {
+    return (
+      <VLayout onLayout={this.restoreScroll.bind(this)}>
+        // lots of content
+      </VLayout>
+    )
+  }
+}
+```
 ### Percentage widths
 When `gutter`s are applied, dimensions won't add 100% because gutters add a non-percentage width. Use `flexGrow` to take up remaining space instead. e.g.
 ```jsx
