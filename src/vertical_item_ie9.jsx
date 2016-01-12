@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import {didDefineWidth, didDefineHeight} from './util';
 import {VLayoutItemPropTypes} from './prop_types';
@@ -7,8 +8,8 @@ import {VLayoutItemPropTypes} from './prop_types';
 export default class VLayoutItemIE9 extends React.Component {
 
   componentDidMount() {
-    this.node = React.findDOMNode(this);
-    this.inner = React.findDOMNode(this.refs.inner);
+    this.node = ReactDOM.findDOMNode(this);
+    this.inner = ReactDOM.findDOMNode(this.refs.inner);
   }
 
   render() {

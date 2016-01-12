@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import VLayoutItemIE9 from './vertical_item_ie9';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
 import {
@@ -18,7 +19,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
     }
 
     componentDidMount() {
-      this.node = React.findDOMNode(this);
+      this.node = ReactDOM.findDOMNode(this);
       requestAsyncUpdate();
     }
 
