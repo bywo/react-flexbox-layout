@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { HLayout, HLayoutItem } from 'react-flexbox-layout';
 
 class DummyNode extends React.Component {
@@ -13,7 +14,7 @@ class DummyNode extends React.Component {
   }
 }
 
-React.render((
+ReactDOM.render((
   <HLayout gutter={10}>
     <HLayoutItem flexGrow align="top">
       <DummyNode style={{padding: 10}}>top</DummyNode>

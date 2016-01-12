@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { VLayout, VLayoutItem } from 'react-flexbox-layout';
 
 class DummyNode extends React.Component {
@@ -13,7 +14,7 @@ class DummyNode extends React.Component {
   }
 }
 
-React.render((
+ReactDOM.render((
   <VLayout height={300} gutter={10} style={{textAlign: 'right'}}>
     <VLayoutItem width={100} flexGrow justify="left">
       <DummyNode style={{padding: 10}}>left</DummyNode>

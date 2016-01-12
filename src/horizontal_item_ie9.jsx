@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {didDefineWidth} from './util';
 import {HLayoutItemPropTypes} from './prop_types';
 
@@ -7,7 +8,7 @@ import {HLayoutItemPropTypes} from './prop_types';
 export default class HLayoutItemIE9 extends React.Component {
 
   componentDidMount() {
-    this.node = React.findDOMNode(this);
+    this.node = ReactDOM.findDOMNode(this);
   }
 
   render() {
@@ -60,7 +61,7 @@ export default class HLayoutItemIE9 extends React.Component {
   }
 
   _applyInheritedStyles(whiteSpace, textAlign, lineHeight) {
-    const style = React.findDOMNode(this.refs.inner).style;
+    const style = ReactDOM.findDOMNode(this.refs.inner).style;
 
     const userStyle = this.props.style || {};
 

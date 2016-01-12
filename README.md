@@ -72,11 +72,11 @@ In cases where scroll position is being lost, you should manually save the scrol
 ```jsx
 class MyScrollingContainer extends React.Component {
   componentWillUpdate() {
-    this._scrollPos = React.findDOMNode(this).scrollTop;
+    this._scrollPos = ReactDOM.findDOMNode(this).scrollTop;
   }
 
   restoreScroll() {
-    React.findDOMNode(this).scrollTop = this._scrollPos;
+    ReactDOM.findDOMNode(this).scrollTop = this._scrollPos;
   }
 
   render() {
@@ -139,4 +139,3 @@ import {EXPAND_CHILD} from `react-flexbox-layout`;
 * Install deps: `npm install`
 * Run watcher: `npm run watch`
 * Run examples server: `npm run examples`, `http://localhost:8080`
-
