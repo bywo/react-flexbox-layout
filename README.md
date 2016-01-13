@@ -1,6 +1,13 @@
+
 # react-flexbox-layout
 
 Simple flexible layouts for IE9+.
+
+# React 0.13 support
+
+If you need to use React 0.13 please use the version 0.x.
+Version 1.x or major DO NOT support React 0.13.
+Master and version 1.x or greater only work with React 0.14 or greater.
 
 ## Rationale
 
