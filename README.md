@@ -1,3 +1,4 @@
+
 # react-flexbox-layout
 
 Simple flexible layouts for IE9+.
@@ -106,7 +107,7 @@ When `gutter`s are applied, dimensions won't add 100% because gutters add a non-
 </HLayout>
 ```
 ### `height: 100%` doesn't work in flexbox
-`react-flexbox-layout` automatically expands a *LayoutItem's immediate child to fill the *LayoutItem's height if applicable (i.e. `<HLayoutItem align="stretch">` or `<VLayoutItem flexGrow>`). However, grand-children aren't automatically expanded in this way, and the CSS magic to make that happen differs depending on browser. In order to make this happen, add the classname constant `EXPAND_CHILD`.
+`react-flexbox-layout` automatically expands a *LayoutItem's* immediate child to fill the *LayoutItem's* height if applicable (i.e. `<HLayoutItem align="stretch">` or `<VLayoutItem flexGrow>`). However, grand-children aren't automatically expanded in this way, and the CSS magic to make that happen differs depending on browser. In order to make this happen, add the classname constant `EXPAND_CHILD`.
 
 ```jsx
 // before
@@ -133,6 +134,12 @@ import {EXPAND_CHILD} from `react-flexbox-layout`;
 
 * Build out GitHub pages
 * browser tests to ensure JS implementation matches native flexbox
+
+## React 0.13 support
+
+If you need to use React 0.13 please use the version 0.x.
+Version 1.x or major DO NOT support React 0.13.
+Master and version 1.x or greater only work with React 0.14 or greater.
 
 ## Contributing
 
