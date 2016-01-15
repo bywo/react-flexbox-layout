@@ -6,7 +6,7 @@ import {
   getHGutterSizes, makeHLayoutItemChildProps,
   mapNonEmpty, normalizeJustify
 } from './util';
-import {prefixDisplayFlex, cssValueToOldFlexSyntax} from './vendors_helper';
+import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   class HLayout extends React.Component {
@@ -35,6 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="HLayout"
           {...this.props}
+          className="appLayoutVendoredFlex"
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -50,9 +51,9 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         height: this.props.height
       };
 
-      // Flex with vendor prefixes:
       // display:flex
-      styles.display = prefixDisplayFlex();
+      // done through class name so we get vendor prefixes
+
       // flex-direction
       styles.WebkitBoxOrient = 'horizontal';
       styles.WebkitBoxDirection = 'normal';

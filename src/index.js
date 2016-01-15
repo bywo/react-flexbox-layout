@@ -1,16 +1,17 @@
-import hasFlexbox from './modernizr';
+// Disable until we learn how to do properly server side rendering support.
+// import hasFlexbox from './modernizr';
 
 import makeHLayoutFlex from './horizontal';
 import HLayoutItemFlex from './horizontal_item';
 import makeVLayoutFlex from './vertical';
 import VLayoutItemFlex from './vertical_item';
 
-import makeHLayoutIE9 from './horizontal_ie9';
-import HLayoutItemIE9 from './horizontal_item_ie9';
-import makeVLayoutIE9 from './vertical_ie9';
-import VLayoutItemIE9 from './vertical_item_ie9';
-
-import {requestNextLayoutMinDelay} from './update_engine_ie9';
+// import makeHLayoutIE9 from './horizontal_ie9';
+// import HLayoutItemIE9 from './horizontal_item_ie9';
+// import makeVLayoutIE9 from './vertical_ie9';
+// import VLayoutItemIE9 from './vertical_item_ie9';
+//
+// import {requestNextLayoutMinDelay} from './update_engine_ie9';
 
 
 let makeHLayout, HLayoutItem, makeVLayout, VLayoutItem;
@@ -20,17 +21,17 @@ let makeHLayout, HLayoutItem, makeVLayout, VLayoutItem;
 const env = process.env.NODE_ENV;
 const isTesting = env === 'test' || env === 'testing';
 
-if (!hasFlexbox() && !isTesting) {
-  makeHLayout = makeHLayoutIE9;
-  HLayoutItem = HLayoutItemIE9;
-  makeVLayout = makeVLayoutIE9;
-  VLayoutItem = VLayoutItemIE9;
-} else {
-  makeHLayout = makeHLayoutFlex;
-  HLayoutItem = HLayoutItemFlex;
-  makeVLayout = makeVLayoutFlex;
-  VLayoutItem = VLayoutItemFlex;
-}
+// if (!hasFlexbox() && !isTesting) {
+//   makeHLayout = makeHLayoutIE9;
+//   HLayoutItem = HLayoutItemIE9;
+//   makeVLayout = makeVLayoutIE9;
+//   VLayoutItem = VLayoutItemIE9;
+// } else {
+makeHLayout = makeHLayoutFlex;
+HLayoutItem = HLayoutItemFlex;
+makeVLayout = makeVLayoutFlex;
+VLayoutItem = VLayoutItemFlex;
+// }
 
 function createCustomClasses({
   defaultGutter = 0,
@@ -52,12 +53,15 @@ toExport.createCustomClasses = createCustomClasses;
 
 toExport.EXPAND_CHILD = 'reactFlexboxLayoutExpandChild';
 
-toExport.requestNextLayoutMinDelay = requestNextLayoutMinDelay;
+// toExport.requestNextLayoutMinDelay = requestNextLayoutMinDelay;
 
 export default toExport;
 
+
 // TODO: move into util
 function addStyleString(str) {
+  if (typeof document === "undefined") return;
+
   var node = document.createElement('style');
   node.innerHTML = str;
   document.head.appendChild(node);
@@ -68,22 +72,31 @@ const flexGrowChildRules = '{ -webkit-box-flex: 1 0 auto; -webkit-flex: 1 0 auto
 
 const staticGrowChildRules = '{ display: block !important; width: 100%; height: 100%; }';
 
-document.addEventListener("DOMContentLoaded", function() {
-  addStyleString(`
-.appLayoutGrowChildFlex ${flexGrowParentRules}
-.appLayoutGrowChildFlex > * ${flexGrowChildRules}
+if (typeof document !== "undefined") {
+  document.addEventListener("DOMContentLoaded", function() {
+    addStyleString(`
+      .appLayoutGrowChildFlex ${flexGrowParentRules}
+      .appLayoutGrowChildFlex > * ${flexGrowChildRules}
 
-.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} ${flexGrowParentRules}
-.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > * ${flexGrowChildRules}
+      .appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} ${flexGrowParentRules}
+      .appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > * ${flexGrowChildRules}
 
-.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} ${flexGrowParentRules}
-.appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} > * ${flexGrowChildRules}
+      .appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} ${flexGrowParentRules}
+      .appLayoutGrowChildFlex > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} > * ${flexGrowChildRules}
 
 
-.appLayoutGrowChildStatic > * ${staticGrowChildRules}
+      .appLayoutGrowChildStatic > * ${staticGrowChildRules}
 
-.appLayoutGrowChildStatic > .${toExport.EXPAND_CHILD} > * ${staticGrowChildRules}
+      .appLayoutGrowChildStatic > .${toExport.EXPAND_CHILD} > * ${staticGrowChildRules}
 
-.appLayoutGrowChildStatic > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} > * ${staticGrowChildRules}
-  `);
-});
+      .appLayoutGrowChildStatic > .${toExport.EXPAND_CHILD} > .${toExport.EXPAND_CHILD} > * ${staticGrowChildRules}
+
+      .appLayoutVendoredFlex {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+      `);
+    });
+}

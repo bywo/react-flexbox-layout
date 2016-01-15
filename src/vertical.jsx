@@ -6,7 +6,7 @@ import {
   getVGutterSizes, makeVLayoutItemChildProps,
   mapNonEmpty, normalizeAlign
 } from './util';
-import {prefixDisplayFlex, cssValueToOldFlexSyntax} from './vendors_helper';
+import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   class VLayout extends React.Component {
@@ -35,6 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="VLayout"
           {...this.props}
+          className="appLayoutVendoredFlex"
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -52,7 +53,8 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
       // Flex with vendor prefixes:
       // display:flex
-      styles.display = prefixDisplayFlex();
+      // done through class name so we get vendor prefixes
+
       // flex-direction
       styles.WebkitBoxOrient = 'vertical';
       styles.WebkitBoxDirection = 'normal';
@@ -81,5 +83,3 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
   return VLayout;
 }
-
-
