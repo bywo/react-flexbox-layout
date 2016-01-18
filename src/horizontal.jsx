@@ -4,7 +4,7 @@ import HLayoutItem from './horizontal_item';
 import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
 import {
   getHGutterSizes, makeHLayoutItemChildProps,
-  mapNonEmpty, normalizeJustify
+  mapNonEmpty, normalizeJustify, joinClassNames
 } from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
@@ -35,7 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="HLayout"
           {...this.props}
-          className="appLayoutVendoredFlex"
+          className={joinClassNames(this.props.className, "appLayoutVendoredFlex")}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}

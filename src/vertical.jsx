@@ -4,7 +4,7 @@ import VLayoutItem from './vertical_item';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
 import {
   getVGutterSizes, makeVLayoutItemChildProps,
-  mapNonEmpty, normalizeAlign
+  mapNonEmpty, normalizeAlign, joinClassNames
 } from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
@@ -35,7 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="VLayout"
           {...this.props}
-          className="appLayoutVendoredFlex"
+          className={joinClassNames(this.props.className, "appLayoutVendoredFlex")}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}

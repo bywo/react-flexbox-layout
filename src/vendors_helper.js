@@ -37,5 +37,3 @@ export let prefixFlexProp = function(style, grow, shrink, basis) {
 
   return style;
 };
-
-

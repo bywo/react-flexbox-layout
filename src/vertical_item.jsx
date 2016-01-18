@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import {VLayoutItemPropTypes} from './prop_types';
 import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
-import {normalizeJustify} from './util';
+import {normalizeJustify, joinClassNames} from './util';
 
 export default class VLayoutItem extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class VLayoutItem extends React.Component {
       <div
         data-display-name="VLayoutItem"
         {...this.props}
-        className={this.props.className ? this.props.className + ' ' + this._getClassname() : this._getClassname()}
+        className={joinClassNames(this.props.className, this._getClassname())}
         style={_.extend(this._getStyles(), this.props.style)}
       >
         {this.props.children}

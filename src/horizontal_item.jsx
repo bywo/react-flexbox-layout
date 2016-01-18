@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import {HLayoutItemPropTypes} from './prop_types';
-import {normalizeAlign} from './util';
+import {normalizeAlign, joinClassNames} from './util';
 import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
 
 export default class HLayoutItem extends React.Component {
@@ -15,7 +15,7 @@ export default class HLayoutItem extends React.Component {
     if (align === 'stretch') {
       return (
         <div {...this.props} {...props}
-          className="appLayoutGrowChildFlex"
+          className={joinClassNames(this.props.className, "appLayoutGrowChildFlex")}
         >
           {this.props.children}
         </div>
@@ -24,7 +24,10 @@ export default class HLayoutItem extends React.Component {
 
     return (
       <div {...this.props} {...props}
-        className={this.props.height ? 'appLayoutGrowChildStatic' : null}
+        className={joinClassNames(
+          this.props.className,
+          this.props.height ? 'appLayoutGrowChildStatic' : null
+        )}
       >
         {this.props.children}
       </div>
