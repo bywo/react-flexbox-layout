@@ -35,7 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="VLayout"
           {...this.props}
-          className={joinClassNames(this.props.className, "appLayoutVendoredFlex")}
+          className={joinClassNames(this.props.className, "appLayoutVendoredFlex appLayoutVendoredFlexVertical")}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -56,15 +56,9 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       // done through class name so we get vendor prefixes
 
       // flex-direction
-      styles.WebkitBoxOrient = 'vertical';
-      styles.WebkitBoxDirection = 'normal';
-      styles.WebkitFlexDirection = 'column';
-      styles.msFlexDirection = 'column';
-      styles.flexDirection = 'column';
+      // done through class name so we get vendor prefixes
       // flex-wrap
-      styles.WebkitFlexWrap = 'nowrap';
-      styles.msFlexWrap = 'nowrap';
-      styles.flexWrap = 'nowrap';
+      // done through class name so we get vendor prefixes
       // justify-content
       styles.WebkitBoxPack = cssValueToOldFlexSyntax(justifyItems);
       styles.WebkitJustifyContent = justifyItems;
