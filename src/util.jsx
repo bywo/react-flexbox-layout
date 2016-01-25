@@ -188,15 +188,3 @@ export function pxToUnit(dimensionString) {
   if (!dimensionString) { return 0; }
   return parseInt(dimensionString.slice(0, -2), 10);
 }
-
-export function joinClassNames(className1, className2) {
-  if (className1 && className2) {
-    return `${className1} ${className2}`;
-  } else if (className1) {
-    return className1;
-  } else if (className2) {
-    return className2;
-  } else {
-    return "";
-  }
-}

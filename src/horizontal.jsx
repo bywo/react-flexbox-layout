@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
+import classNames from 'classnames';
 import HLayoutItem from './horizontal_item';
 import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
 import {
   getHGutterSizes, makeHLayoutItemChildProps,
-  mapNonEmpty, normalizeJustify, joinClassNames
+  mapNonEmpty, normalizeJustify
 } from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
@@ -35,7 +36,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="HLayout"
           {...this.props}
-          className={joinClassNames(this.props.className, "appLayoutVendoredFlex appLayoutVendoredFlexHorizontal")}
+          className={classNames(this.props.className, "appLayoutVendoredFlex appLayoutVendoredFlexHorizontal")}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -51,13 +52,6 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         height: this.props.height
       };
 
-      // display:flex
-      // done through class name so we get vendor prefixes
-
-      // flex-direction
-      // done through class name so we get vendor prefixes
-      // flex-wrap
-      // done through class name so we get vendor prefixes
       // justify-content
       styles.WebkitBoxPack = cssValueToOldFlexSyntax(justifyItems);
       styles.WebkitJustifyContent = justifyItems;

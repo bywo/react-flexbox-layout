@@ -1,3 +1,4 @@
+// Check if we have a DOM, to support server side rendering
 const hasFlexbox = typeof document !== 'undefined' ?
   require('./modernizr') :
   () => true;

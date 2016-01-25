@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
+import classNames from 'classnames';
 import VLayoutItem from './vertical_item';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
 import {
   getVGutterSizes, makeVLayoutItemChildProps,
-  mapNonEmpty, normalizeAlign, joinClassNames
+  mapNonEmpty, normalizeAlign
 } from './util';
 import {cssValueToOldFlexSyntax} from './vendors_helper';
 
@@ -35,7 +36,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="VLayout"
           {...this.props}
-          className={joinClassNames(this.props.className, "appLayoutVendoredFlex appLayoutVendoredFlexVertical")}
+          className={classNames(this.props.className, "appLayoutVendoredFlex appLayoutVendoredFlexVertical")}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -51,14 +52,6 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         height: this.props.height
       };
 
-      // Flex with vendor prefixes:
-      // display:flex
-      // done through class name so we get vendor prefixes
-
-      // flex-direction
-      // done through class name so we get vendor prefixes
-      // flex-wrap
-      // done through class name so we get vendor prefixes
       // justify-content
       styles.WebkitBoxPack = cssValueToOldFlexSyntax(justifyItems);
       styles.WebkitJustifyContent = justifyItems;
