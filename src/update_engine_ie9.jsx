@@ -64,8 +64,10 @@ export function update() {
  */
 export const requestAsyncUpdate = _.debounce(updateAfterDelay, 0);
 
-// update on window resize
-window.addEventListener('resize', _.debounce(requestAsyncUpdate, 16));
+if (typeof window !== 'undefined') {
+  // update on window resize
+  window.addEventListener('resize', _.debounce(requestAsyncUpdate, 16));
+}
 
 var nextDelay = 0;
 /**

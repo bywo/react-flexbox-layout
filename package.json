@@ -4,8 +4,8 @@
   "description": "Simple flexible layouts for IE9+",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -r lib && babel ./src -d lib",
+    "test": "babel-node test/server_side-test",
+    "build": "rm -rf lib && babel ./src -d lib && cp src/styles.css lib/",
     "watch": "babel ./src --watch -d lib",
     "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline",
     "prepublish": "npm run build"
