@@ -43,7 +43,7 @@ function createCustomClasses({
 let toExport = createCustomClasses();
 toExport.createCustomClasses = createCustomClasses;
 
-toExport.EXPAND_CHILD = 'reactFlexboxLayoutExpandChild';
+toExport.EXPAND_CHILD = 'rflExpandChild';
 
 toExport.requestNextLayoutMinDelay = requestNextLayoutMinDelay;
 

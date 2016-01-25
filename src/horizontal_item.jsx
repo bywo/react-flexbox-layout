@@ -16,7 +16,7 @@ export default class HLayoutItem extends React.Component {
     if (align === 'stretch') {
       return (
         <div {...this.props} {...props}
-          className={classNames(this.props.className, "appLayoutGrowChildFlex")}
+          className={classNames(this.props.className, "rflGrowChildFlex")}
         >
           {this.props.children}
         </div>
@@ -27,7 +27,7 @@ export default class HLayoutItem extends React.Component {
       <div {...this.props} {...props}
         className={classNames(
           this.props.className,
-          this.props.height ? 'appLayoutGrowChildStatic' : null
+          this.props.height ? 'rflGrowChildStatic' : null
         )}
       >
         {this.props.children}

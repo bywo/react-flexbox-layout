@@ -125,7 +125,7 @@ export default class HLayoutItemIE9 extends React.Component {
   _getClassname() {
     let align = this.props.align;
     if (align === 'stretch' || this.props.height) {
-      return "appLayoutGrowChildStatic";
+      return "rflGrowChildStatic";
     }
     return "";
   }

@@ -36,7 +36,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="VLayout"
           {...this.props}
-          className={classNames(this.props.className, "appLayoutVendoredFlex appLayoutVendoredFlexVertical")}
+          className={classNames(this.props.className, "rflFlex rflFlexVertical")}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}

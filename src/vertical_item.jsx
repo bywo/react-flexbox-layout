@@ -51,7 +51,7 @@ export default class VLayoutItem extends React.Component {
 
   _getClassname() {
     if (this._mustGrowChild()) {
-      return "appLayoutGrowChildFlex";
+      return "rflGrowChildFlex";
     }
 
     return "";
