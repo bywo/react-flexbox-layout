@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import {HLayoutItemPropTypes} from './prop_types';
 import {normalizeAlign} from './util';
-import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
+import {prefixFlexProp} from './vendors_helper';
 
 export default class HLayoutItem extends React.Component {
   render() {
@@ -12,27 +12,21 @@ export default class HLayoutItem extends React.Component {
       style: _.extend(this._getStyles(), this.props.style)
     };
 
-    let align = this.props.align;
-    if (align === 'stretch') {
-      return (
-        <div {...this.props} {...props}
-          className={classNames(this.props.className, "rflGrowChildFlex")}
-        >
-          {this.props.children}
-        </div>
-      );
-    }
-
     return (
       <div {...this.props} {...props}
-        className={classNames(
-          this.props.className,
-          this.props.height ? 'rflGrowChildStatic' : null
-        )}
+        className={classNames(this.props.className, this._getClassName())}
       >
         {this.props.children}
       </div>
     );
+  }
+
+  _getClassName() {
+    let growClassName = (this.props.align === 'stretch') ?
+      "rflGrowChildFlex" : (this.props.height ? 'rflGrowChildStatic' : null);
+    let align = normalizeAlign(this.props.align);
+
+    return classNames(growClassName, align && `rflAlignSelf_${align}`);
   }
 
   _getStyles() {
@@ -45,15 +39,6 @@ export default class HLayoutItem extends React.Component {
     } else {
       style = prefixFlexProp(style, 0, 0, 'auto');
     }
-
-    let align = normalizeAlign(this.props.align);
-
-    // Browser vendor prefixes
-    // align-self
-    style.WebkitAlignSelf = align;
-    style.msFlexItemAlign = cssValueToOldFlexSyntax(align);
-    style.alignSelf = align;
-
 
     if (_gutterLeft) {
       style.marginLeft = _gutterLeft;

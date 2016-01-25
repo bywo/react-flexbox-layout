@@ -7,7 +7,6 @@ import {
   getVGutterSizes, makeVLayoutItemChildProps,
   mapNonEmpty, normalizeAlign
 } from './util';
-import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   class VLayout extends React.Component {
@@ -36,7 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="VLayout"
           {...this.props}
-          className={classNames(this.props.className, "rflFlex rflFlexVertical")}
+          className={classNames(this.props.className, this._getContainerClassName())}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -44,21 +43,16 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       );
     }
 
-    _getContainerStyles () {
+    _getContainerClassName() {
       let justifyItems = normalizeAlign(this.props.alignItems);
+      return classNames("rflFlex rflFlexVertical", justifyItems && `rflJustifyContent_${justifyItems}`);
+    }
 
-      let styles = {
+    _getContainerStyles () {
+      return {
         width: this.props.width,
         height: this.props.height
       };
-
-      // justify-content
-      styles.WebkitBoxPack = cssValueToOldFlexSyntax(justifyItems);
-      styles.WebkitJustifyContent = justifyItems;
-      styles.msFlexPack = cssValueToOldFlexSyntax(justifyItems);
-      styles.justifyContent = justifyItems;
-
-      return styles;
     }
   }
 

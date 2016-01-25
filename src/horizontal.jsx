@@ -7,7 +7,6 @@ import {
   getHGutterSizes, makeHLayoutItemChildProps,
   mapNonEmpty, normalizeJustify
 } from './util';
-import {cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   class HLayout extends React.Component {
@@ -36,7 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="HLayout"
           {...this.props}
-          className={classNames(this.props.className, "rflFlex rflFlexHorizontal")}
+          className={classNames(this.props.className, this._getContainerClassName())}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -44,21 +43,16 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       );
     }
 
-    _getContainerStyles () {
+    _getContainerClassName() {
       let justifyItems = normalizeJustify(this.props.justifyItems);
+      return classNames("rflFlex rflFlexHorizontal", justifyItems && `rflJustifyContent_${justifyItems}`);
+    }
 
-      let styles = {
+    _getContainerStyles () {
+      return {
         width: this.props.width,
         height: this.props.height
       };
-
-      // justify-content
-      styles.WebkitBoxPack = cssValueToOldFlexSyntax(justifyItems);
-      styles.WebkitJustifyContent = justifyItems;
-      styles.msFlexPack = cssValueToOldFlexSyntax(justifyItems);
-      styles.justifyContent = justifyItems;
-
-      return styles;
     }
   }
 
