@@ -14,6 +14,44 @@ The most common use case is a series of elements laid out in a row or column wit
 
 For Chrome, Firefox, IE10+, and Safari, native flexbox is used. For IE9, a Javascript shim is used.
 
+## Usage
+
+```js
+
+// Import the components with the default config
+import { HLayout, HLayoutItem, VLayout, VLayoutItem } from 'react-flexbox-layout';
+
+// Another way: Import the factory function to create the components with custom config
+import { createCustomClasses } from 'react-flexbox-layout';
+
+const { HLayout, HLayoutItem, VLayout, VLayoutItem } = createCustomClasses({
+  defaultGutter: ...,
+  gutterMultiplier: ...,
+  defaultGutterUnit: ...,
+  // wether to simulate flexbox behavior or not. In the browser it is automatically
+  // set by detecting flexbox support. In the server is false by default and should
+  // be set if supporting IE9, for example, by detecting the user agent.
+  simulateFlexbox: ...
+});
+```
+
+You should also include the `.css` file that this library provides, either by
+just referencing in your html, or by importing it using `webpack` with `css-loader`
+or any other bundler:
+
+```html
+<link rel="stylesheet" href="<path_to_react-flexbox-layout>/lib/styles.css" />
+```
+
+or, inside your JS:
+
+```js
+import { ... } from 'react-flexbox-layout';
+import 'react-flexbox-layout/lib/styles.css';
+
+...
+```
+
 ## Concepts
 
 * `HLayout`: short for horizontal layout. A series of elements laid out in a row.
