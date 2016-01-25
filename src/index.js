@@ -8,7 +8,10 @@ const hasFlexbox = typeof document !== 'undefined' ?
 const env = process.env.NODE_ENV;
 const isTesting = env === 'test' || env === 'testing';
 
-import {requestNextLayoutMinDelay} from './update_engine_ie9';
+import {
+  requestNextLayoutMinDelay,
+  updateOnWindowResize
+} from './update_engine_ie9';
 
 function createCustomClasses({
   defaultGutter = 0,
@@ -24,6 +27,11 @@ function createCustomClasses({
     HLayoutItem = require('./horizontal_item_ie9');
     makeVLayout = require('./vertical_ie9');
     VLayoutItem = require('./vertical_item_ie9');
+
+    // Update layout on window resize to simulate flexbox in the browser
+    if (typeof window !== 'undefined') {
+      updateOnWindowResize();
+    }
   } else {
     makeHLayout = require('./horizontal');
     HLayoutItem = require('./horizontal_item');
