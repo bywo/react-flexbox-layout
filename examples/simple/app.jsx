@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HLayout, HLayoutItem } from 'react-flexbox-layout';
+import 'react-flexbox-layout/styles.css';
 
 class DummyNode extends React.Component {
   render() {

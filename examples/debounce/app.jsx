@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HLayout, HLayoutItem, requestNextLayoutMinDelay } from 'react-flexbox-layout';
-
+import 'react-flexbox-layout/styles.css';
 
 class FocusedInput extends React.Component {
   componentDidMount() {
