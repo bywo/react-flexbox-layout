@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 function isDirectory(dir) {
   return fs.lstatSync(dir).isDirectory();
@@ -28,23 +29,25 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' }
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.css$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('css') }
     ]
   },
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      'react-flexbox-layout$': process.cwd() + '/src',
+      'react-flexbox-layout': process.cwd() + '/src',
       // 'react-router/lib': process.cwd() + '/modules'
     }
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('shared.js'),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'shared' }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-    })
+    }),
+    new ExtractTextPlugin('[name].css'),
   ]
 
 };

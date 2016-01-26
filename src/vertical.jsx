@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import React from 'react';
+import classNames from 'classnames';
 import VLayoutItem from './vertical_item';
 import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
 import {
   getVGutterSizes, makeVLayoutItemChildProps,
   mapNonEmpty, normalizeAlign
 } from './util';
-import {prefixDisplayFlex, cssValueToOldFlexSyntax} from './vendors_helper';
 
 export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   class VLayout extends React.Component {
@@ -35,6 +35,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div
           data-display-name="VLayout"
           {...this.props}
+          className={classNames(this.props.className, this._getContainerClassName())}
           style={_.extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
@@ -42,34 +43,16 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       );
     }
 
-    _getContainerStyles () {
+    _getContainerClassName() {
       let justifyItems = normalizeAlign(this.props.alignItems);
+      return classNames("rflFlex rflFlexVertical", justifyItems && `rflJustifyContent_${justifyItems}`);
+    }
 
-      let styles = {
+    _getContainerStyles () {
+      return {
         width: this.props.width,
         height: this.props.height
       };
-
-      // Flex with vendor prefixes:
-      // display:flex
-      styles.display = prefixDisplayFlex();
-      // flex-direction
-      styles.WebkitBoxOrient = 'vertical';
-      styles.WebkitBoxDirection = 'normal';
-      styles.WebkitFlexDirection = 'column';
-      styles.msFlexDirection = 'column';
-      styles.flexDirection = 'column';
-      // flex-wrap
-      styles.WebkitFlexWrap = 'nowrap';
-      styles.msFlexWrap = 'nowrap';
-      styles.flexWrap = 'nowrap';
-      // justify-content
-      styles.WebkitBoxPack = cssValueToOldFlexSyntax(justifyItems);
-      styles.WebkitJustifyContent = justifyItems;
-      styles.msFlexPack = cssValueToOldFlexSyntax(justifyItems);
-      styles.justifyContent = justifyItems;
-
-      return styles;
     }
   }
 
@@ -81,5 +64,3 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
   return VLayout;
 }
-
-

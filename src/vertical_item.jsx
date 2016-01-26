@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
+import classNames from 'classnames';
 import {VLayoutItemPropTypes} from './prop_types';
-import {cssValueToOldFlexSyntax, prefixFlexProp} from './vendors_helper';
+import {prefixFlexProp} from './vendors_helper';
 import {normalizeJustify} from './util';
 
 export default class VLayoutItem extends React.Component {
@@ -10,7 +11,7 @@ export default class VLayoutItem extends React.Component {
       <div
         data-display-name="VLayoutItem"
         {...this.props}
-        className={this.props.className ? this.props.className + ' ' + this._getClassname() : this._getClassname()}
+        className={classNames(this.props.className, this._getClassName())}
         style={_.extend(this._getStyles(), this.props.style)}
       >
         {this.props.children}
@@ -29,15 +30,6 @@ export default class VLayoutItem extends React.Component {
       style = prefixFlexProp(style, 0, 0, 'auto');
     }
 
-    let align = normalizeJustify(this.props.justify);
-
-    // Browser vendor prefixes
-    // align-self
-    style.WebkitAlignSelf = align;
-    style.msFlexItemAlign = cssValueToOldFlexSyntax(align);
-    style.alignSelf = align;
-
-
     if (_gutterTop) {
       style.marginTop = _gutterTop;
     }
@@ -48,12 +40,12 @@ export default class VLayoutItem extends React.Component {
     return style;
   }
 
-  _getClassname() {
-    if (this._mustGrowChild()) {
-      return "appLayoutGrowChildFlex";
-    }
-
-    return "";
+  _getClassName() {
+    let align = normalizeJustify(this.props.justify);
+    return classNames(
+      this._mustGrowChild() && "rflGrowChildFlex",
+      align && `rflAlignSelf_${align}`
+    );
   }
 
   _mustGrowChild() {

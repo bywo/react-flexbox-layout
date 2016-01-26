@@ -98,7 +98,7 @@ export default class VLayoutItemIE9 extends React.Component {
 
   _getClassname() {
     if (this._mustGrowChild()) {
-      return "appLayoutGrowChildStatic";
+      return "rflGrowChildStatic";
     }
 
     return "";
