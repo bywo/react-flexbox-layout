@@ -142,11 +142,11 @@ export let VLayoutItemPropTypes = {
 };
 
 const everythingDangerousStyles = [
-  "display", "position", "float"
+  "display", "float"
 ];
 
 const layoutDangerousStyles = everythingDangerousStyles;
 
 const layoutItemDangerousStyles = everythingDangerousStyles.concat([
-  "margin", "marginTop", "marginBottom", "marginLeft", "marginRight"
+  "position", "margin", "marginTop", "marginBottom", "marginLeft", "marginRight"
 ]);
