@@ -1,10 +1,14 @@
 import _ from "lodash";
 import React from "react";
 
+function isEmptyNode (node) {
+  return node == null || node.type === "noscript";
+}
+
 export function mapNonEmpty(children, fn) {
   let offset = 0;
   return React.Children.map(children, function(child, index) {
-    if (!child) {
+    if (isEmptyNode(child)) {
       offset += 1;
       return child;
     }
@@ -16,7 +20,7 @@ export function mapNonEmpty(children, fn) {
 export function forEachNonEmpty(children, fn) {
   let offset = 0;
   React.Children.forEach(children, function(child, index) {
-    if (!child) {
+    if (isEmptyNode(child)) {
       offset += 1;
       return;
     }
@@ -28,7 +32,7 @@ export function forEachNonEmpty(children, fn) {
 export function countNonEmpty(children) {
   let count = 0;
   React.Children.forEach(children, function(child) {
-    if (child) {
+    if (!isEmptyNode(child)) {
       count += 1;
     }
   });

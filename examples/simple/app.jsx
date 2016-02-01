@@ -30,6 +30,15 @@ React.render((
     <HLayoutItem flexGrow align="bottom">
       <DummyNode style={{padding: 10}}>bottom</DummyNode>
     </HLayoutItem>
+    <noscript />
+    <noscript />
+    <noscript />
+    <noscript />
+    <noscript />
+    <noscript />
+    <noscript />
+    <noscript />
+    <noscript />
     <HLayoutItem flexGrow align="stretch">
       <DummyNode style={{padding: 10}}>stretch</DummyNode>
     </HLayoutItem>

@@ -1,6 +1,6 @@
 {
   "name": "react-flexbox-layout",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Simple flexible layouts for IE9+",
   "main": "lib/index.js",
   "scripts": {
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/byronmwong/react-flexbox-layout#readme",
   "devDependencies": {
+    "lodash": "^3.0.0",
+    "react": "0.13.x",
     "babel": "5.6.5",
     "babel-core": "5.6.5",
     "babel-loader": "5.1.4",
