@@ -39,8 +39,8 @@
   },
   "peerDependencies": {
     "lodash": "^3.0.0",
-    "react": "0.14.x",
-    "react-dom": "0.14.x"
+    "react": "15.0.x",
+    "react-dom": "15.0.x"
   },
   "dependencies": {
     "classnames": "^2.2.3"
