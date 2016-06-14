@@ -53,8 +53,7 @@ export function update() {
   invokeMap(components, '_measureItemHeights');
   invokeMap(components, '_applyFlexHeights');
 
-  // NOTE: each contai
-  // ner must be set sequentially instead of batched because child Layout heights can depend on
+  // NOTE: each container must be set sequentially instead of batched because child Layout heights can depend on
   // parent Layout heights (e.g., child is vertical flexGrow on parent). In-order traversal of array works because of the
   // invariant described above: parent Layout components will have lower index than child Layout components.
   invokeMap(components, '_setContainerHeights');
