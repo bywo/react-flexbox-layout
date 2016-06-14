@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import extend from 'lodash/extend';
 import React from 'react';
 import classNames from 'classnames';
 import VLayoutItem from './vertical_item';
@@ -36,7 +36,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
           data-display-name="VLayout"
           {...this.props}
           className={classNames(this.props.className, this._getContainerClassName())}
-          style={_.extend(this._getContainerStyles(), this.props.style)}
+          style={extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
         </div>
@@ -57,7 +57,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   }
 
   VLayout.propTypes = VLayoutPropTypes;
-  VLayout.defaultProps = _.extend({}, VLayoutDefaultPropTypes, {
+  VLayout.defaultProps = extend({}, VLayoutDefaultPropTypes, {
     gutter: defaultGutter,
     gutterUnit: defaultGutterUnit
   });

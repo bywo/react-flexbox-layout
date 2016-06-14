@@ -1,4 +1,5 @@
-import _ from "lodash";
+import each from "lodash/each";
+import isNumber from "lodash/isNumber";
 import React from "react";
 
 function isEmptyNode (node) {
@@ -60,8 +61,8 @@ function getGutterSizes(gutterPrevKey, gutterNextKey, children, defaultGutter) {
     if (index === 0) {
       gutterSizes[0] = gutterPrev;
     } else {
-      if (_.isNumber(gutterSizes[index])) {
-        if (_.isNumber(gutterPrev)) {
+      if (isNumber(gutterSizes[index])) {
+        if (isNumber(gutterPrev)) {
           gutterSizes[index] = Math.max(gutterSizes[index], gutterPrev);
         }
       } else {
@@ -74,7 +75,7 @@ function getGutterSizes(gutterPrevKey, gutterNextKey, children, defaultGutter) {
 
   // fill in blank gutters with the default
   gutterSizes = gutterSizes.map((gutter, index) => {
-    return _.isNumber(gutter) ? gutter :
+    return isNumber(gutter) ? gutter :
       index === 0 || index === childrenCount ? 0 :
       defaultGutter;
   });
@@ -92,7 +93,7 @@ export function sumSizes(dimension, items) {
   items.forEach((item) => {
     const size = item.props[dimension] || (item.props.style && item.props.style[dimension]);
     if (size === undefined || size === null) { return; }
-    if (_.isNumber(size)) {
+    if (isNumber(size)) {
       addTo(sum, 'px', size);
     } else {
       let matches = sizeRegex.exec(size);
@@ -118,7 +119,7 @@ export function getSizeCalc(usedSpace, flexGrow, totalFlexGrow) {
   const ratio = flexGrow / totalFlexGrow;
   const expressions = [`${100 * ratio}%`];
 
-  _.each(usedSpace, (value, unit) => {
+  each(usedSpace, (value, unit) => {
     expressions.push(`${value * ratio}${unit}`);
   });
 

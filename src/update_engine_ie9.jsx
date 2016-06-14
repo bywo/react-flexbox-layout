@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import includes from 'lodash/includes';
+import debounce from 'lodash/debounce';
+import invokeMap from 'lodash/invokeMap';
 
 /**
  * UpdateEngineIE9
@@ -15,7 +17,7 @@ let components = [];
  * @param  {LayoutComponent} component
  */
 export function register(component) {
-  if (!_.contains(components, component)) {
+  if (!includes(components, component)) {
     components.push(component);
   }
 }
@@ -36,36 +38,37 @@ export function deregister(component) {
  */
 export function update() {
   // first unset all styles, since existing styles will mess with measurements
-  _.invoke(components, '_unsetLayoutStyles');
+  invokeMap(components, '_unsetLayoutStyles');
 
   // NOTE: batch measurements and style application as much as possible to prevent excessive reflows
 
   // apply widths first because heights are dependent on widths (e.g., text wrap), but not the other way around
-  _.invoke(components, '_measureInheritedStyles');
-  _.invoke(components, '_measureWidths');
+  invokeMap(components, '_measureInheritedStyles');
+  invokeMap(components, '_measureWidths');
 
-  _.invoke(components, '_applyInheritedStyles');
-  _.invoke(components, '_applyWidths');
+  invokeMap(components, '_applyInheritedStyles');
+  invokeMap(components, '_applyWidths');
 
   // apply heights now that widths have been set
-  _.invoke(components, '_measureItemHeights');
-  _.invoke(components, '_applyFlexHeights');
+  invokeMap(components, '_measureItemHeights');
+  invokeMap(components, '_applyFlexHeights');
 
-  // NOTE: each container must be set sequentially instead of batched because child Layout heights can depend on
+  // NOTE: each contai
+  // ner must be set sequentially instead of batched because child Layout heights can depend on
   // parent Layout heights (e.g., child is vertical flexGrow on parent). In-order traversal of array works because of the
   // invariant described above: parent Layout components will have lower index than child Layout components.
-  _.invoke(components, '_setContainerHeights');
+  invokeMap(components, '_setContainerHeights');
 
-  _.invoke(components, '_callDidLayout');
+  invokeMap(components, '_callDidLayout');
 }
 
 /**
  * requestAsyncUpdate guarantees that `update` will be run sometime in the future
  */
-export const requestAsyncUpdate = _.debounce(updateAfterDelay, 0);
+export const requestAsyncUpdate = debounce(updateAfterDelay, 0);
 
 export function updateOnWindowResize() {
-  window.addEventListener('resize', _.debounce(requestAsyncUpdate, 16));
+  window.addEventListener('resize', debounce(requestAsyncUpdate, 16));
 }
 
 var nextDelay = 0;

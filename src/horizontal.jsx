@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import extend from 'lodash/extend';
 import React from 'react';
 import classNames from 'classnames';
 import HLayoutItem from './horizontal_item';
@@ -36,7 +36,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
           data-display-name="HLayout"
           {...this.props}
           className={classNames(this.props.className, this._getContainerClassName())}
-          style={_.extend(this._getContainerStyles(), this.props.style)}
+          style={extend(this._getContainerStyles(), this.props.style)}
         >
           {children}
         </div>
@@ -58,7 +58,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
 
   HLayout.propTypes = HLayoutPropTypes;
-  HLayout.defaultProps = _.extend({}, HLayoutDefaultPropTypes, {
+  HLayout.defaultProps = extend({}, HLayoutDefaultPropTypes, {
     gutter: defaultGutter,
     gutterUnit: defaultGutterUnit
   });
