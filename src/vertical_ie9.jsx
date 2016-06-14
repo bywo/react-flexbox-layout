@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import extend from 'lodash/extend';
+import invokeMap from 'lodash/invokeMap';
+import range from 'lodash/range';
+import sum from 'lodash/sum';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import VLayoutItemIE9 from './vertical_item_ie9';
@@ -42,7 +45,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       return (
         <div ref="wrapper" data-display-name="VLayoutWrapper"
           {...this.props}
-          style={_.extend(this._getLayoutWrapperStyles(), this.props.style)}
+          style={extend(this._getLayoutWrapperStyles(), this.props.style)}
         >
           <div ref="container" data-display-name="VLayout"
             style={this._getLayoutStyles()}
@@ -78,7 +81,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         style.width = '';
       }
 
-      _.range(countNonEmpty(this.props.children)).forEach((i) => {
+      range(countNonEmpty(this.props.children)).forEach((i) => {
         this.refs[`item_${i}`]._unsetLayoutStyles();
       }, this);
     }
@@ -92,7 +95,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
     _applyInheritedStyles() {
       const items = this.itemsRefs.map(ref => this.refs[ref]);
-      _.invoke(items, '_applyInheritedStyles', this._inheritedTextAlign);
+      invokeMap(items, '_applyInheritedStyles', this._inheritedTextAlign);
     }
 
     _applyWidths() {
@@ -116,10 +119,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
     _applyFlexHeights() {
       const items = this.itemsRefs.map(ref => this.refs[ref]);
 
-      const totalFlexGrow = _(items)
+      const flexGrowValues = items
         .filter(item => item.props.flexGrow)
-        .map(item => item.props.flexGrow === true ? 1 : item.props.flexGrow)
-        .sum();
+        .map(item => item.props.flexGrow === true ? 1 : item.props.flexGrow);
+      const totalFlexGrow = sum(flexGrowValues);
 
       // sum heights used up by elements
       const usedSpace = sumSizes('height', items);
@@ -128,12 +131,12 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       const measuredHeightsAsNumbers = this._measuredHeights
         .filter(i => i !== null)
         .map(measurement => parseFloat(measurement.slice(0, -2)));
-      addTo(usedSpace, 'px', _.sum(measuredHeightsAsNumbers));
+      addTo(usedSpace, 'px', sum(measuredHeightsAsNumbers));
 
       // add gutters
-      addTo(usedSpace, this.props.gutterUnit, _.sum(this.gutterSizes));
+      addTo(usedSpace, this.props.gutterUnit, sum(this.gutterSizes));
 
-      _.range(countNonEmpty(this.props.children)).forEach((i) => {
+      range(countNonEmpty(this.props.children)).forEach((i) => {
         const item = this.refs[`item_${i}`];
         if (item.props.flexGrow) {
           return item._applyHeight(getSizeCalc(usedSpace, item.props.flexGrow, totalFlexGrow));
@@ -188,7 +191,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
   }
 
   VLayoutIE9.propTypes = VLayoutPropTypes;
-  VLayoutIE9.defaultProps = _.extend({}, VLayoutDefaultPropTypes, {
+  VLayoutIE9.defaultProps = extend({}, VLayoutDefaultPropTypes, {
     gutter: defaultGutter,
     gutterUnit: defaultGutterUnit
   });

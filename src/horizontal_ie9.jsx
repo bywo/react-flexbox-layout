@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import extend from 'lodash/extend';
+import range from 'lodash/range';
+import invokeMap from 'lodash/invokeMap';
+import sum from 'lodash/sum';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HLayoutItemIE9 from './horizontal_item_ie9';
@@ -44,7 +47,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         <div ref="horizontal"
           data-display-name="HLayout"
           {...this.props}
-          style={_.extend(this._getLayoutStyles(), this.props.style)}
+          style={extend(this._getLayoutStyles(), this.props.style)}
         >
           {children}
         </div>
@@ -79,7 +82,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       style.whiteSpace = '';
       style.textAlign = '';
 
-      _.range(countNonEmpty(this.props.children)).forEach((i) => {
+      range(countNonEmpty(this.props.children)).forEach((i) => {
 
         this.refs[`item_${i}`]._unsetLayoutStyles();
       }, this);
@@ -93,7 +96,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
     }
 
     _measureWidths() {
-      this._measuredWidths = _.range(countNonEmpty(this.props.children)).map((i) => {
+      this._measuredWidths = range(countNonEmpty(this.props.children)).map((i) => {
         const item = this.refs[`item_${i}`];
         if (didDefineWidth(item.props) || item.props.flexGrow) {
           return null;
@@ -108,16 +111,16 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       style.textAlign = this.props.justifyItems;
 
       const items = this.itemsRefs.map(ref => this.refs[ref]);
-      _.invoke(items, '_applyInheritedStyles', this._inheritedWhiteSpace, this._inheritedTextAlign, this._inheritedLineHeight);
+      invokeMap(items, '_applyInheritedStyles', this._inheritedWhiteSpace, this._inheritedTextAlign, this._inheritedLineHeight);
     }
 
     _applyWidths() {
       const items = this.itemsRefs.map(ref => this.refs[ref]);
 
-      const totalFlexGrow = _(items)
+      const flexGrowValues = items
         .filter(item => item.props.flexGrow)
-        .map(item => item.props.flexGrow === true ? 1 : item.props.flexGrow)
-        .sum();
+        .map(item => item.props.flexGrow === true ? 1 : item.props.flexGrow);
+      const totalFlexGrow = sum(flexGrowValues);
 
       // sum widths used up by elements
       const usedSpace = sumSizes('width', items);
@@ -126,12 +129,12 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       const measuredWidthsAsNumbers = this._measuredWidths
         .filter(i => i !== null)
         .map(measurement => parseFloat(measurement.slice(0, -2)));
-      addTo(usedSpace, 'px', _.sum(measuredWidthsAsNumbers));
+      addTo(usedSpace, 'px', sum(measuredWidthsAsNumbers));
 
       // add gutters
-      addTo(usedSpace, this.props.gutterUnit, _.sum(this.gutterSizes));
+      addTo(usedSpace, this.props.gutterUnit, sum(this.gutterSizes));
 
-      _.range(countNonEmpty(this.props.children)).forEach((i) => {
+      range(countNonEmpty(this.props.children)).forEach((i) => {
         const item = this.refs[`item_${i}`];
         if (item.props.flexGrow) {
           return item._applyWidth(getSizeCalc(usedSpace, item.props.flexGrow, totalFlexGrow));
@@ -155,7 +158,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
       style.height = heightString;
       const items = this.itemsRefs.map(ref => this.refs[ref]);
-      _.invoke(items, '_setContainerHeight', heightWithoutPaddingString);
+      invokeMap(items, '_setContainerHeight', heightWithoutPaddingString);
     }
 
     _callDidLayout() {
@@ -175,7 +178,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
 
 
   HLayoutIE9.propTypes = HLayoutPropTypes;
-  HLayoutIE9.defaultProps = _.extend({}, HLayoutDefaultPropTypes, {
+  HLayoutIE9.defaultProps = extend({}, HLayoutDefaultPropTypes, {
     gutter: defaultGutter,
     gutterUnit: defaultGutterUnit
   });

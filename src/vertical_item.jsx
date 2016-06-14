@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import extend from 'lodash/extend';
 import React from 'react';
 import classNames from 'classnames';
 import {VLayoutItemPropTypes} from './prop_types';
@@ -12,7 +12,7 @@ export default class VLayoutItem extends React.Component {
         data-display-name="VLayoutItem"
         {...this.props}
         className={classNames(this.props.className, this._getClassName())}
-        style={_.extend(this._getStyles(), this.props.style)}
+        style={extend(this._getStyles(), this.props.style)}
       >
         {this.props.children}
       </div>

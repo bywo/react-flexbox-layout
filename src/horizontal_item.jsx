@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import extend from 'lodash/extend';
 import React from 'react';
 import classNames from 'classnames';
 import {HLayoutItemPropTypes} from './prop_types';
@@ -9,7 +9,7 @@ export default class HLayoutItem extends React.Component {
   render() {
     let props = {
       'data-display-name': "HLayoutItem",
-      style: _.extend(this._getStyles(), this.props.style)
+      style: extend(this._getStyles(), this.props.style)
     };
 
     return (
