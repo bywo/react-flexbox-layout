@@ -7,7 +7,7 @@
     "test": "babel-node test/server_side-test",
     "build": "rm -rf lib && babel ./src -d lib && cp src/styles.css lib/",
     "watch": "babel ./src --watch -d lib",
-    "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline",
+    "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline --host 0.0.0.0",
     "prepublish": "npm run build"
   },
   "repository": {
