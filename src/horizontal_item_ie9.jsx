@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import extend from 'lodash/extend';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {didDefineWidth} from './util';
@@ -18,19 +18,19 @@ export default class HLayoutItemIE9 extends React.Component {
           data-display-name="HLayoutItem"
           {...this.props}
           className={this.props.className ? this.props.className + ' ' + this._getClassname() : this._getClassname()}
-          style={_.extend(this._getInnerStyles(), this._getWrapperStyles(), this.props.style)}
+          style={extend(this._getInnerStyles(), this._getWrapperStyles(), this.props.style)}
         >
           {this.props.children}
         </div>
       );
     } else {
       return (
-        <div data-display-name="HLayoutItemWrapper" {...this.props} style={_.extend(this._getWrapperStyles())}>
+        <div data-display-name="HLayoutItemWrapper" {...this.props} style={extend(this._getWrapperStyles())}>
           <div style={{display: 'inline-block', verticalAlign: 'middle', width: 0, overflow: 'hidden'}}>a</div>
           <div ref="inner"
             data-display-name="HLayoutItem"
             className={this._getClassname()}
-            style={_.extend(this._getInnerStyles(), {width: '100%'}, this.props.style)}
+            style={extend(this._getInnerStyles(), {width: '100%'}, this.props.style)}
           >
             {this.props.children}
           </div>
