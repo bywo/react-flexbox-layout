@@ -1,6 +1,6 @@
 {
   "name": "react-flexbox-layout",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Simple flexible layouts for IE9+",
   "main": "lib/index.js",
   "scripts": {
