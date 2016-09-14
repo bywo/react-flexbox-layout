@@ -150,3 +150,20 @@ const layoutDangerousStyles = everythingDangerousStyles;
 const layoutItemDangerousStyles = everythingDangerousStyles.concat([
   "position", "margin", "marginTop", "marginBottom", "marginLeft", "marginRight"
 ]);
+
+
+export const cleanProps = function (props) {
+  const proprietaryProps = Object.keys(Object.assign({},
+    HLayoutPropTypes,
+    HLayoutDefaultPropTypes,
+    HLayoutItemPropTypes,
+    VLayoutPropTypes,
+    VLayoutDefaultPropTypes,
+    VLayoutItemPropTypes
+  ));
+  let safeProps = Object.assign({}, props);
+  for (let k in proprietaryProps) {
+    delete safeProps[proprietaryProps[k]];
+  }
+  return safeProps;
+};

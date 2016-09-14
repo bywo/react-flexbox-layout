@@ -2,7 +2,7 @@ import extend from 'lodash/extend';
 import React from 'react';
 import classNames from 'classnames';
 import VLayoutItem from './vertical_item';
-import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
+import {VLayoutPropTypes, VLayoutDefaultPropTypes, cleanProps} from './prop_types';
 import {
   getVGutterSizes, makeVLayoutItemChildProps,
   mapNonEmpty, normalizeAlign
@@ -34,7 +34,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       return (
         <div
           data-display-name="VLayout"
-          {...this.props}
+          {...cleanProps(this.props)}
           className={classNames(this.props.className, this._getContainerClassName())}
           style={extend(this._getContainerStyles(), this.props.style)}
         >

@@ -5,7 +5,7 @@ import sum from 'lodash/sum';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import VLayoutItemIE9 from './vertical_item_ie9';
-import {VLayoutPropTypes, VLayoutDefaultPropTypes} from './prop_types';
+import {VLayoutPropTypes, VLayoutDefaultPropTypes, cleanProps} from './prop_types';
 import {
   getVGutterSizes, makeVLayoutItemChildProps,
   forEachNonEmpty, mapNonEmpty, countNonEmpty,
@@ -42,9 +42,10 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
         return this._buildChild(child, index, this.gutterSizes);
       });
 
+
       return (
         <div ref="wrapper" data-display-name="VLayoutWrapper"
-          {...this.props}
+          {...cleanProps(this.props)}
           style={extend(this._getLayoutWrapperStyles(), this.props.style)}
         >
           <div ref="container" data-display-name="VLayout"

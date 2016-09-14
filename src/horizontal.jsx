@@ -2,7 +2,7 @@ import extend from 'lodash/extend';
 import React from 'react';
 import classNames from 'classnames';
 import HLayoutItem from './horizontal_item';
-import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
+import {HLayoutPropTypes, HLayoutDefaultPropTypes, cleanProps} from './prop_types';
 import {
   getHGutterSizes, makeHLayoutItemChildProps,
   mapNonEmpty, normalizeJustify
@@ -34,7 +34,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       return (
         <div
           data-display-name="HLayout"
-          {...this.props}
+          {...cleanProps(this.props)}
           className={classNames(this.props.className, this._getContainerClassName())}
           style={extend(this._getContainerStyles(), this.props.style)}
         >
