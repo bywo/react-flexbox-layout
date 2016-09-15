@@ -5,7 +5,7 @@ import sum from 'lodash/sum';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HLayoutItemIE9 from './horizontal_item_ie9';
-import {HLayoutPropTypes, HLayoutDefaultPropTypes} from './prop_types';
+import {HLayoutPropTypes, HLayoutDefaultPropTypes, cleanProps} from './prop_types';
 import {
   getHGutterSizes, makeHLayoutItemChildProps,
   mapNonEmpty, countNonEmpty,
@@ -46,7 +46,7 @@ export default function(defaultGutter, gutterMultiplier, defaultGutterUnit) {
       return (
         <div ref="horizontal"
           data-display-name="HLayout"
-          {...this.props}
+          {...cleanProps(this.props)}
           style={extend(this._getLayoutStyles(), this.props.style)}
         >
           {children}

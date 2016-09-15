@@ -1,7 +1,7 @@
 import extend from 'lodash/extend';
 import React from 'react';
 import classNames from 'classnames';
-import {HLayoutItemPropTypes} from './prop_types';
+import {HLayoutItemPropTypes, cleanProps} from './prop_types';
 import {normalizeAlign} from './util';
 import {prefixFlexProp} from './vendors_helper';
 
@@ -13,7 +13,7 @@ export default class HLayoutItem extends React.Component {
     };
 
     return (
-      <div {...this.props} {...props}
+      <div {...cleanProps(this.props)} {...props}
         className={classNames(this.props.className, this._getClassName())}
       >
         {this.props.children}

@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 function layoutItemChildrenChecker(props, propName, componentName) {
   if (React.Children.count(props[propName]) > 1) {
@@ -150,3 +151,16 @@ const layoutDangerousStyles = everythingDangerousStyles;
 const layoutItemDangerousStyles = everythingDangerousStyles.concat([
   "position", "margin", "marginTop", "marginBottom", "marginLeft", "marginRight"
 ]);
+
+const proprietaryProps = _.keys(_.assign({},
+  HLayoutPropTypes,
+  HLayoutDefaultPropTypes,
+  HLayoutItemPropTypes,
+  VLayoutPropTypes,
+  VLayoutDefaultPropTypes,
+  VLayoutItemPropTypes
+));
+
+export const cleanProps = function (props) {
+  return _.omit(props, proprietaryProps);
+};

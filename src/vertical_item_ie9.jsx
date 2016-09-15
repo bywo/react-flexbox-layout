@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import extend from 'lodash/extend';
 import {didDefineWidth, didDefineHeight} from './util';
-import {VLayoutItemPropTypes} from './prop_types';
+import {VLayoutItemPropTypes, cleanProps} from './prop_types';
 
 
 export default class VLayoutItemIE9 extends React.Component {
@@ -16,7 +16,7 @@ export default class VLayoutItemIE9 extends React.Component {
     return (
       <div
         data-display-name="VLayoutItemWrapper"
-        {...this.props}
+        {...cleanProps(this.props)}
         style={extend(this._getItemWrapperStyles(), this.props.style)}
       >
         <div ref="inner" style={this._getItemStyles()}
