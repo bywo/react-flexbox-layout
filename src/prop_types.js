@@ -1,5 +1,7 @@
 import React from 'react';
-import _ from 'lodash';
+import keys from 'lodash/keys';
+import assign from 'lodash/assign';
+import omit from 'lodash/omit';
 
 function layoutItemChildrenChecker(props, propName, componentName) {
   if (React.Children.count(props[propName]) > 1) {
@@ -152,7 +154,7 @@ const layoutItemDangerousStyles = everythingDangerousStyles.concat([
   "position", "margin", "marginTop", "marginBottom", "marginLeft", "marginRight"
 ]);
 
-const proprietaryProps = _.keys(_.assign({},
+const proprietaryProps = keys(assign({},
   HLayoutPropTypes,
   HLayoutDefaultPropTypes,
   HLayoutItemPropTypes,
@@ -162,5 +164,5 @@ const proprietaryProps = _.keys(_.assign({},
 ));
 
 export const cleanProps = function (props) {
-  return _.omit(props, proprietaryProps);
+  return omit(props, proprietaryProps);
 };
