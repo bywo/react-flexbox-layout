@@ -1,18 +1,13 @@
 .rflGrowChildFlex { display: -webkit-box !important; display: -webkit-flex !important; display: -ms-flexbox !important; display: flex !important; }
 .rflGrowChildFlex > * { -webkit-box-flex: 1 1 auto; -webkit-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; position: relative;}
 
-.rflGrowChildFlex > .rflExpandChild { display: -webkit-box !important; display: -webkit-flex !important; display: -ms-flexbox !important; display: flex !important; }
-.rflGrowChildFlex > .rflExpandChild > * { -webkit-box-flex: 1 1 auto; -webkit-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; position: relative;}
-
-.rflGrowChildFlex > .rflExpandChild > .rflExpandChild { display: -webkit-box !important; display: -webkit-flex !important; display: -ms-flexbox !important; display: flex !important; }
-.rflGrowChildFlex > .rflExpandChild > .rflExpandChild > * { -webkit-box-flex: 1 1 auto; -webkit-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; position: relative;}
+.rflGrowChildFlex .rflExpandChild { display: -webkit-box !important; display: -webkit-flex !important; display: -ms-flexbox !important; display: flex !important; }
+.rflGrowChildFlex .rflExpandChild > * { -webkit-box-flex: 1 1 auto; -webkit-flex: 1 1 auto; -ms-flex: 1 1 auto; flex: 1 1 auto; position: relative;}
 
 
 .rflGrowChildStatic > * { display: block !important; width: 100%; height: 100%; }
 
-.rflGrowChildStatic > .rflExpandChild > * { display: block !important; width: 100%; height: 100%; }
-
-.rflGrowChildStatic > .rflExpandChild > .rflExpandChild > * { display: block !important; width: 100%; height: 100%; }
+.rflGrowChildStatic .rflExpandChild > * { display: block !important; width: 100%; height: 100%; }
 
 .rflFlex {
   display: -webkit-box;
