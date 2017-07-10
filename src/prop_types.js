@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import keys from 'lodash/keys';
 import assign from 'lodash/assign';
@@ -19,12 +20,12 @@ function shouldNotExist(props, propName, componentName) {
 // Horizontal Layout
 //
 export let HLayoutPropTypes = {
-  justifyItems: React.PropTypes.oneOf(['left', 'center', 'right']),
-  alignItems: React.PropTypes.oneOf(['top', 'middle', 'baseline', 'bottom', 'stretch']),
-  gutter: React.PropTypes.number,
-  gutterUnit: React.PropTypes.string,
-  width: React.PropTypes.any,
-  height: React.PropTypes.any,
+  justifyItems: PropTypes.oneOf(['left', 'center', 'right']),
+  alignItems: PropTypes.oneOf(['top', 'middle', 'baseline', 'bottom', 'stretch']),
+  gutter: PropTypes.number,
+  gutterUnit: PropTypes.string,
+  width: PropTypes.any,
+  height: PropTypes.any,
   style: function (props, propName, componentName) {
     for (let property of layoutDangerousStyles) {
       if (props[propName] && props[propName].hasOwnProperty(property)) {
@@ -32,7 +33,7 @@ export let HLayoutPropTypes = {
       }
     }
   },
-  onLayout: React.PropTypes.func
+  onLayout: PropTypes.func
 };
 
 export let HLayoutDefaultPropTypes = {
@@ -43,20 +44,20 @@ export let HLayoutDefaultPropTypes = {
 };
 
 export let HLayoutItemPropTypes = {
-  width: React.PropTypes.any,
-  height: React.PropTypes.any,
-  flexGrow: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
-  align: React.PropTypes.oneOf(['top', 'middle', 'baseline', 'bottom', 'stretch']),
+  width: PropTypes.any,
+  height: PropTypes.any,
+  flexGrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  align: PropTypes.oneOf(['top', 'middle', 'baseline', 'bottom', 'stretch']),
   justify: shouldNotExist,
 
-  gutterLeft: React.PropTypes.number,
-  gutterRight: React.PropTypes.number,
+  gutterLeft: PropTypes.number,
+  gutterRight: PropTypes.number,
 
   children: layoutItemChildrenChecker,
 
   // Used internally by HLayout
-  _gutterLeft: React.PropTypes.string,
-  _gutterRight: React.PropTypes.string,
+  _gutterLeft: PropTypes.string,
+  _gutterRight: PropTypes.string,
 
   style: function (props, propName, componentName) {
     for (let property of layoutItemDangerousStyles) {
@@ -84,12 +85,12 @@ export let HLayoutItemPropTypes = {
 // Vertical Layout
 //
 export let VLayoutPropTypes = {
-  justifyItems: React.PropTypes.oneOf(['left', 'center', 'right', 'stretch']),
-  alignItems: React.PropTypes.oneOf(['top', 'middle', 'bottom']),
-  gutter: React.PropTypes.number,
-  gutterUnit: React.PropTypes.string,
-  width: React.PropTypes.any,
-  height: React.PropTypes.any,
+  justifyItems: PropTypes.oneOf(['left', 'center', 'right', 'stretch']),
+  alignItems: PropTypes.oneOf(['top', 'middle', 'bottom']),
+  gutter: PropTypes.number,
+  gutterUnit: PropTypes.string,
+  width: PropTypes.any,
+  height: PropTypes.any,
   style: function (props, propName, componentName) {
     for (let property of layoutDangerousStyles) {
       if (props[propName] && props[propName].hasOwnProperty(property)) {
@@ -97,7 +98,7 @@ export let VLayoutPropTypes = {
       }
     }
   },
-  onLayout: React.PropTypes.func
+  onLayout: PropTypes.func
 };
 
 export let VLayoutDefaultPropTypes = {
@@ -108,20 +109,20 @@ export let VLayoutDefaultPropTypes = {
 };
 
 export let VLayoutItemPropTypes = {
-  width: React.PropTypes.any,
-  height: React.PropTypes.any,
-  flexGrow: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.number]),
+  width: PropTypes.any,
+  height: PropTypes.any,
+  flexGrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   align: shouldNotExist,
-  justify: React.PropTypes.oneOf(['left', 'center', 'right', 'stretch']),
+  justify: PropTypes.oneOf(['left', 'center', 'right', 'stretch']),
 
-  gutterTop: React.PropTypes.number,
-  gutterBottom: React.PropTypes.number,
+  gutterTop: PropTypes.number,
+  gutterBottom: PropTypes.number,
 
   children: layoutItemChildrenChecker,
 
   // Used internally by VLayout
-  _gutterTop: React.PropTypes.string,
-  _gutterBottom: React.PropTypes.string,
+  _gutterTop: PropTypes.string,
+  _gutterBottom: PropTypes.string,
 
   style: function (props, propName, componentName) {
     for (let property of layoutItemDangerousStyles) {
